@@ -1,24 +1,14 @@
 %p#notice= notice
-
-%p
-  %b Title:
-  = @project.title
-%p
-  %b Description:
-  = @project.description
-%p
-  %b User:
-  = @project.user_id
-%p
-  %b Github:
-  = @project.github
-%p
-  %b Website:
-  = @project.website
-%p
-  %b Youtube:
-  = @project.youtube
-
-= link_to 'Edit', edit_project_path(@project)
-\|
-= link_to 'Back', projects_path
+.container.border-bottom
+  .d-flex.justify-content-end
+    .d-flex.justify-content-evenly
+      = link_to 'Edit', edit_project_path(@project), class: "btn btn-secondary btn-sm"
+      = link_to 'Back', projects_path, class: "btn btn-secondary btn-sm ms-3"
+  = render @project
+  .d-flex.justify-content-evenly
+    .p-2
+      =link_to "GitHub", @project.github, class: "btn btn-dark"
+    .p-2
+      =link_to "Website", @project.website, class: "btn btn-primary"
+    .p-2
+      =link_to "Youtube", @project.youtube, class: "btn btn-danger"
