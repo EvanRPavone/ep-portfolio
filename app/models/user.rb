@@ -6,5 +6,5 @@ class User < ApplicationRecord
 
   # Relations
   has_many :projects
-  has_one :profile
+  # has_one :profile
 end

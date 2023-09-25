@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @project.title
+%p
+  %b Description:
+  = @project.description
+%p
+  %b User:
+  = @project.user_id
+%p
+  %b Github:
+  = @project.github
+%p
+  %b Website:
+  = @project.website
+%p
+  %b Youtube:
+  = @project.youtube
+
+= link_to 'Edit', edit_project_path(@project)
+\|
+= link_to 'Back', projects_path
