@@ -57,6 +57,12 @@ gem 'html2haml', '~> 2.3' # Converter
 # Bootstrap
 gem "bootstrap"
 
+# Use jquery as the JavaScript librar
+gem 'jquery-rails'
+
+# Use jquery-ui for pretty UI
+gem 'jquery-ui-rails'
+
 # Use Sass to process CSS
 gem "sassc-rails"
 
