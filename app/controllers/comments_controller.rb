@@ -21,6 +21,17 @@ class CommentsController < ApplicationController
     redirect_to project_path(@project)
   end
 
+  def update
+    @comment = @project.comments.find(params[:id])
+    respond_to do |format|
+      if @comment.update(comment_params)
+        format.html { redirect_to project_url(@project), notice: 'Comment has been updated'}
+      else
+        format.html { redirect_to project_url(@project), alert: 'Comment was not updated'}
+      end
+    end
+  end
+
   private
 
   def set_project

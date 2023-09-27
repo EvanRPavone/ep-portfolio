@@ -15,6 +15,6 @@
       =link_to "View Portfolio", user_path(@project.user), class: "btn btn-light"
 
 .container
-  =render 'comments/form', project: @project
+  =render 'comments/form', project: @project, comment: @project.comments.build, submit_label: "Reply"
   -@comments.each do |comment|
     =render 'comments/comment', project: @project, comment: comment
