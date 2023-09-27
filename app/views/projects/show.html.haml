@@ -1,5 +1,3 @@
-%p#notice= notice
-
 .container.border-bottom
   .d-flex.justify-content-end
     .d-flex.justify-content-evenly
@@ -15,3 +13,8 @@
       =link_to "Youtube", @project.youtube, class: "btn btn-danger"
     .p-2
       =link_to "View Portfolio", user_path(@project.user), class: "btn btn-light"
+
+.container
+  =render 'comments/form', project: @project
+  -@comments.each do |comment|
+    =render 'comments/comment', project: @project, comment: comment

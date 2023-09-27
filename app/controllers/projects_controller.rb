@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1 or /projects/1.json
   def show
     @project.update(views: @project.views + 1)
+    @comments = @project.comments.order(created_at: :desc)
   end
 
   # GET /projects/new

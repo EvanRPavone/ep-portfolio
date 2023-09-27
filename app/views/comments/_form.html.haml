@@ -1,0 +1,5 @@
+.container
+  = form_with model: [project, project.comments.build] do |f|
+    .form-control
+      =f.rich_text_area :body
+      =f.submit "Reply", class: "btn btn-primary mt-1"

@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :projects
+
+  resources :projects do
+    resources :comments
+  end
 
   # Pages
   root "pages#home"

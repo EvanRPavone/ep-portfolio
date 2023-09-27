@@ -14,8 +14,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # Relations
-  has_many :projects
-  has_one :portfolio
+  has_many :projects, dependent: :destroy
+  has_many :comments, dependent: :destroy
   # has_one :role
   #has_many :fans
 
