@@ -1,4 +1,5 @@
 %p#notice= notice
+
 .container.border-bottom
   .d-flex.justify-content-end
     .d-flex.justify-content-evenly
@@ -12,3 +13,5 @@
       =link_to "Website", @project.website, class: "btn btn-primary"
     .p-2
       =link_to "Youtube", @project.youtube, class: "btn btn-danger"
+    .p-2
+      =link_to "View Portfolio", user_path(@project.user), class: "btn btn-light"

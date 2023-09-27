@@ -6,7 +6,14 @@ Rails.application.routes.draw do
   get 'about', to:'pages#about'
   get 'testing', to: 'pages#testing_area'
 
-  devise_for :users
+  # Devise (User)
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+
+  # Profile
+  get 'portfolio/:id', to: 'users#portfolio', as: 'user'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

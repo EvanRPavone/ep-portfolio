@@ -1,0 +1,22 @@
+-if current_user
+  %li.nav-item.dropdown
+    %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{:role => "button", "data-bs-toggle" => "dropdown", "aria-expanded" => "false"} 
+      #{current_user.username}
+    %ul.dropdown-menu.dropdown-menu-lg-end{"aria-labelledby" => "navbarDropdownMenuLink"}
+      %li
+        = link_to "Profile", "#", {:class => "dropdown-item"}
+      %li
+        = link_to "Post New Project", new_project_path, {:class => "dropdown-item"}
+      %li
+        = link_to "Your Projects", projects_path, {:class => "dropdown-item"}
+      %li
+        %hr.dropdown-divider
+      %li
+        = link_to "Edit Account", edit_user_registration_path, {:class => "dropdown-item"}
+      %li
+        = button_to "Logout", destroy_user_session_path, class:"dropdown-item", method: :delete
+-else
+  %li.nav-item
+    = link_to "Sign Up", new_user_registration_path, {:class => "nav-link", :aria_current => "page"}
+  %li.nav-item
+    = link_to "Login", new_user_session_path, {:class => "nav-link"}

@@ -3,21 +3,15 @@
     = link_to 'Portfoliyours', root_path, {:class => "navbar-brand"}
     %button.navbar-toggler{:type => "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#navbarNavDropdown", "aria-controls" =>"navbarNavDropdown", "aria-expanded" =>"false", "aria-label" => "Toggle navigation"}
       %span.navbar-toggler-icon
-    .collapse.navbar-collapse#navbarNavDropdown
-      %ul.navbar-nav
+    .collapse.navbar-collapse#navbarSupportedContent
+      %ul.navbar-nav.me-auto.mb-2.mb-lg-0
         %li.nav-item
           = link_to "Home", root_path, {:class => "nav-link active", :aria_current => "page"}
         %li.nav-item
           = link_to "About", about_path, {:class => "nav-link"}
         %li.nav-item
           = link_to "Your Portfolio", about_path, {:class => "nav-link"}
-        %li.nav-item.dropdown
-          %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{:role => "button", "data-bs-toggle" => "dropdown", "aria-expanded" => "false"} 
-            Profile
-          %ul.dropdown-menu{"aria-labelledby" => "navbarDropdownMenuLink"}
-            %li
-              = link_to "Your Projects", projects_path, {:class => "dropdown-item"}
-            %li
-              = link_to "Post New Project", new_project_path, {:class => "dropdown-item"}
-
+      .d-flex
+        %ul.navbar-nav
+          = render 'user/session_manager'
             

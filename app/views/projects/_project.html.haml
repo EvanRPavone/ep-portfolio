@@ -1,6 +1,8 @@
 .d-flex.flex-column{:id=>"#{dom_id project}"}
   .p-2
     %h2.text-center= project.title
+    %h4 Author: #{project.user.first_name} #{project.user.last_name}
+    %h6= pluralize(project.views, "view")
     %hr/
     %p= project.description
 
