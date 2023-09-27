@@ -2,22 +2,22 @@
   %h1.display-3 #{@user.first_name} #{@user.last_name}'s Portfolio
   %span.right= pluralize(@user.views, "view")
   %hr/
-  #projects
-    -@projects.each do |project|
-      =render "projects/project", project: project
-      .d-flex.justify-content-start
-        %p
-          =link_to "Show", project, class: "btn btn-primary"
-      %hr/
-
-%br
-
--# = link_to 'New Project', new_project_path
--# %p Find me in app/views/users/profile.html.haml
--#   #projects
--#     -@projects.each do |project|
--#       =render project
--#       .d-flex.justify-content-start
--#         %p
--#           =link_to "Show", project, class: "btn btn-primary"
--#       %hr/
+  .card-mb-4#projects
+    .row
+      -@projects.each do |project|
+        .col-6.mb-4
+          .card
+            .card-body
+              .d-flex.justify-content-between.mb-3
+                %h5.card-title
+                  = project.title
+                  %span.fs-6.lead.text-muted
+                    = pluralize(project.views, "view")
+                =link_to "Show", project, class: "btn btn-sm btn-light"
+              %p.border-top.card-text= project.description
+              .btn-toolbar.justify-content-end.border-top{:role=> "toolbar"}
+                .d-flex.mt-3
+                  =link_to "GitHub", project, class: "btn btn-sm btn-dark"
+                  =link_to "Website", project, class: "btn btn-sm btn-primary ms-2 me-2"
+                  =link_to "Youtube", project, class: "btn btn-sm btn-danger"
+  %hr/

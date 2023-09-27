@@ -3,6 +3,8 @@
   %hr/
   #projects
     -@projects.each do |project|
+      %h2.text-center= project.title
+      %h4 Author: #{project.user.first_name} #{project.user.last_name}
       =render project
       .d-flex.justify-content-start
         %p

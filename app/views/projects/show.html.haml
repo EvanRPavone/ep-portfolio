@@ -1,4 +1,6 @@
 .container.border-bottom
+  %h2.text-center= @project.title
+  %h4 Author: #{@project.user.first_name} #{@project.user.last_name}
   .d-flex.justify-content-end
     .d-flex.justify-content-evenly
       = link_to 'Edit', edit_project_path(@project), class: "btn btn-secondary btn-sm"
