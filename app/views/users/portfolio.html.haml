@@ -1,3 +1,23 @@
-%h1= @user.username
-%h6= pluralize(@user.views, "view")
-%p Find me in app/views/users/profile.html.haml
+.container
+  %h1.display-3 #{@user.first_name} #{@user.last_name}'s Portfolio
+  %span.right= pluralize(@user.views, "view")
+  %hr/
+  #projects
+    -@projects.each do |project|
+      =render "projects/project", project: project
+      .d-flex.justify-content-start
+        %p
+          =link_to "Show", project, class: "btn btn-primary"
+      %hr/
+
+%br
+
+-# = link_to 'New Project', new_project_path
+-# %p Find me in app/views/users/profile.html.haml
+-#   #projects
+-#     -@projects.each do |project|
+-#       =render project
+-#       .d-flex.justify-content-start
+-#         %p
+-#           =link_to "Show", project, class: "btn btn-primary"
+-#       %hr/
