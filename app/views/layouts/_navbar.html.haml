@@ -9,9 +9,11 @@
           = link_to "Home", root_path, {:class => "nav-link active", :aria_current => "page"}
         %li.nav-item
           = link_to "Activity", about_path, {:class => "nav-link"}
-        %li.nav-item
-          = link_to "Your Portfolio", user_path(current_user), {:class => "nav-link"}
+        - if current_user
+          %li.nav-item
+            = link_to "Your Portfolio", user_path(current_user), {:class => "nav-link"}
       .d-flex
         %ul.navbar-nav
+          = render 'layouts/notifications'
           = render 'user/session_manager'
             
