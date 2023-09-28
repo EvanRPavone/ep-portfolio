@@ -11,6 +11,8 @@ class ProjectsController < ApplicationController
   def show
     @project.update(views: @project.views + 1)
     @comments = @project.comments.order(created_at: :desc)
+
+    mark_notifications_as_read
   end
 
   # GET /projects/new
@@ -70,5 +72,12 @@ class ProjectsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def project_params
       params.require(:project).permit(:title, :description, :user_id, :github, :website, :youtube)
+    end
+
+    def mark_notifications_as_read
+      if current_user
+        notifications_to_mark_as_read = @project.notifications_as_project.where(recipient: current_user)
+        notifications_to_mark_as_read.update_all(read_at: Time.zone.now)
+      end
     end
 end

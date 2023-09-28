@@ -16,6 +16,7 @@ class User < ApplicationRecord
   # Relations
   has_many :projects, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :notifications, as: :recipient, dependent: :destroy
   # has_one :role
   #has_many :fans
 
