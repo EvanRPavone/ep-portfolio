@@ -1,0 +1,15 @@
+%h1.text-center=pluralize(@project.count, "Result")
+
+.container
+  %table.table.table-striped
+    %thead
+      %tr
+        %th= sort_link(@query, :title, "Title", default_order: :asc)
+        %th Description
+        %th Author
+    %tbody
+      -@project.each do |project|
+        %tr
+          %td=link_to project.title, project
+          %td=project.description.to_plain_text.truncate_words(25)
+          %td=link_to "#{project.user.first_name} #{project.user.last_name}", project.user

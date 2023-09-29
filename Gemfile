@@ -93,3 +93,5 @@ group :test do
 end
 
 gem "noticed", "~> 1.6"
+
+gem "ransack", "~> 4.0"

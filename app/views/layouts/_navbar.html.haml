@@ -14,6 +14,7 @@
             = link_to "Your Portfolio", user_path(current_user), {:class => "nav-link"}
       .d-flex
         %ul.navbar-nav
+          = render 'search/form'
           = render 'layouts/notifications'
           = render 'user/session_manager'
             

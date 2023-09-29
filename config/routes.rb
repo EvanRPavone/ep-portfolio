@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'search', to: 'search#index'
+
   resources :projects do
     resources :comments
   end
@@ -15,7 +17,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  # Profile
+  # Profile/Portfolio
   get 'portfolio/:id', to: 'users#portfolio', as: 'user'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

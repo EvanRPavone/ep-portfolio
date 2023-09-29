@@ -20,5 +20,9 @@ class User < ApplicationRecord
   # has_one :role
   #has_many :fans
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["email", "first_name", "last_name", "role", "username"]
+  end
+
 
 end
