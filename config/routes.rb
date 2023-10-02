@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  authenticated :user, ->(user) { user.admin? } do
+    get 'admin', to: 'admin#index'
+    get 'admin/projects'
+    get 'admin/comments'
+    get 'admin/users'
+    get 'admin/show_project/:id', to: "admin#show_project", as: "admin_project"
+  end
+
   get 'search', to: 'search#index'
 
   resources :projects do
@@ -18,7 +26,7 @@ Rails.application.routes.draw do
   }
 
   # Profile/Portfolio
-  get 'portfolio/:id', to: 'users#portfolio', as: 'user'
+  get 'p/:id', to: 'users#portfolio', as: 'user'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

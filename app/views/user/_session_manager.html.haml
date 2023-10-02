@@ -4,11 +4,9 @@
       #{current_user.username}
     %ul.dropdown-menu.dropdown-menu-lg-end{"aria-labelledby" => "navbarDropdownMenuLink"}
       %li
-        = link_to "Profile", "#", {:class => "dropdown-item"}
+        = link_to "Admin", admin_path, {:class => "dropdown-item"} if current_user.admin?
       %li
         = link_to "Post New Project", new_project_path, {:class => "dropdown-item"}
-      %li
-        = link_to "Your Projects", projects_path, {:class => "dropdown-item"}
       %li
         %hr.dropdown-divider
       %li

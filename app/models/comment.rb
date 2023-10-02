@@ -15,7 +15,7 @@ class Comment < ApplicationRecord
   end
 
   def cleanup_notifications
-    notification_as_comment.destroy_alll
+    notifications_as_comment.destroy_all
     # Notification.where(comment_id: comment.id).destroy
   end
 end

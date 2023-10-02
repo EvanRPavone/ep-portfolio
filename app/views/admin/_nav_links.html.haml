@@ -1,0 +1,7 @@
+.container.text-center
+  %p
+    = link_to "Admin > #{params[:action].capitalize}", admin_path unless params[:action].eql?("index")
+  .btn-group
+    =render "admin/link", resource: Project
+    =render "admin/link", resource: Comment
+    =render "admin/link", resource: User

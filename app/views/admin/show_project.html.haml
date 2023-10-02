@@ -1,0 +1,32 @@
+.container
+  %h1.text-center
+    Adminstrator
+  =render 'admin/nav_links'
+  .text-center.mt-5
+    .btn-group
+      =link_to "Edit", edit_project_path(@project), class: "btn btn-warning"
+      =button_to "Delete", @project, method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger'
+  .row.mt-1
+    %p
+      %strong Title:
+      #{@project.title}
+  .row.mt-1
+    %p
+      %strong Author:
+      #{@project.user.username} | #{@project.user.email} | #{pluralize(@project.user.views, "View")}
+  .row.mt-1
+    %p
+      %strong Description:
+      #{@project.description}
+  .row.mt-1
+    %p
+      %strong #{pluralize(@project.comments.size, "Comment")}:
+    %hr/
+    -@comments.each do |c|
+      %p
+        %strong= c.user.username
+      %p
+        #{c.body}
+      .btn-group.mb-2
+        =button_to "Delete", [@project, c], class: "btn btn-sm btn-danger", method: :delete
+      %hr/
