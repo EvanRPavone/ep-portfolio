@@ -14,26 +14,21 @@ admin = User.first_or_create!(email: "admin@localhost.com",
                               last_name: "Pavone",
                               phone_number: "(919) 609-3402",
                               role: User.roles[:admin])
-user = User.first_or_create!(email: "user@localhost.com",
+basic = User.first_or_create!(email: "user@localhost.com",
                               password: "password",
                               password_confirmation: "password",
                               first_name: "Mike",
                               last_name: "Provolone",
                               phone_number: "(222) 222-2222")
 
-Address.first_or_create!(street: "3544 Bainford Dr",
-                        city: "Fuquay-Varina",
-                        state: "NC",
-                        zip: "27526",
+Location.first_or_create!(state: "NC",
                         country: "USA",
                         user: admin)
 
-Address.first_or_create!(street: "103 Duden Ct, Apt B",
-                        city: "Cary",
-                        state: "NC",
-                        zip: "27513",
+Location.first_or_create!(state: "NC",
                         country: "USA",
-                        user: user)
+                        user: basic)
+
 
 Social.first_or_create!(github: "https://github.com/EvanRPavone",
                         linkedin: "https://www.linkedin.com/in/evan-pavone/",
@@ -51,7 +46,7 @@ elapsed = Benchmark.measure do
     2.times do |y|
       puts "Creating comment #{y} for project #{x}"
       comment = project.comments.build(body: "Hello #{admin.first_name}",
-                      user: user)
+                      user: basic)
     end
     projects.push(project)
   end

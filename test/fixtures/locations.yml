@@ -2,14 +2,10 @@
 
 one:
   street: MyString
-  city: MyString
-  zip: 1
   country: MyString
   user: one
 
 two:
   street: MyString
-  city: MyString
-  zip: 1
   country: MyString
   user: two

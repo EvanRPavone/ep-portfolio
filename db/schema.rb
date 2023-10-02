@@ -52,18 +52,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_191328) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "addresses", force: :cascade do |t|
-    t.string "street"
-    t.string "city"
-    t.string "state"
-    t.integer "zip"
-    t.string "country"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_addresses_on_user_id"
-  end
-
   create_table "comments", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.bigint "user_id", null: false
@@ -82,6 +70,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_191328) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "state"
+    t.string "country"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_locations_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -138,11 +135,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_191328) do
     t.string "last_name"
     t.integer "views", default: 0
     t.string "slug"
-    t.bigint "address_id"
+    t.bigint "location_id"
     t.string "phone_number"
     t.bigint "social_id"
-    t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["location_id"], name: "index_users_on_location_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
     t.index ["social_id"], name: "index_users_on_social_id"
@@ -150,11 +147,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_191328) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "addresses", "users"
   add_foreign_key "comments", "projects"
   add_foreign_key "comments", "users"
+  add_foreign_key "locations", "users"
   add_foreign_key "projects", "users"
   add_foreign_key "socials", "users"
-  add_foreign_key "users", "addresses"
+  add_foreign_key "users", "locations"
   add_foreign_key "users", "socials"
 end
