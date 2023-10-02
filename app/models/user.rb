@@ -19,8 +19,8 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :notifications, as: :recipient, dependent: :destroy
 
-  has_one :address, dependent: :destroy, inverse_of: :user, autosave: true
-  accepts_nested_attributes_for :address, allow_destroy: true
+  has_one :location, dependent: :destroy, inverse_of: :user, autosave: true
+  accepts_nested_attributes_for :location, allow_destroy: true
   has_one :social, dependent: :destroy, inverse_of: :user, autosave: true
   accepts_nested_attributes_for :social, allow_destroy: true
   # Role
@@ -32,7 +32,7 @@ class User < ApplicationRecord
 
   # Class level accessor http://apidock.com/rails/Class/cattr_accessor
   cattr_accessor :form_steps do
-    %w[sign_up set_name set_address set_social find_users]
+    %w[sign_up set_name set_location set_social find_users]
   end
 
   # Instance level accessor http://apidock.com/ruby/Module/attr_accessor
@@ -49,7 +49,7 @@ class User < ApplicationRecord
   end
 
   # Step 2
-  validates_associated :address, if: -> { required_for_step?('set_address') }
+  validates_associated :location, if: -> { required_for_step?('set_location') }
 
   def required_for_step?(step)
     # All fields are required if no form step is present

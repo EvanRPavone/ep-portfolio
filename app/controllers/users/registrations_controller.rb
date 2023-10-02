@@ -21,8 +21,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
-    current_user.build_address(address_params) unless current_user.address
-    current_user.address.update(address_params)
+    current_user.build_location(location_params) unless current_user.location
+    current_user.location.update(location_params)
     current_user.build_social(social_params) unless current_user.social
     current_user.social.update(social_params)
     super
@@ -58,7 +58,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
                                                               :phone_number,
                                                               :password_confirmation,
                                                               :current_password,
-                                                              { address: %i[street city state zip country] },
+                                                              { location: %i[state country] },
                                                               { social: %i[github linkedin website youtube twitter instagram discord] }])
   end
 
@@ -78,11 +78,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def address_params
-    params.require(:address).permit(:id, :street, :city, :state, :zip, :country)
+  def location_params
+    params.require(:location).permit(:id, :state, :country)
   end
 
   def social_params
-    params.require(:address).permit(:id, :github, :linkedin, :website, :youtube, :twitter, :instagram, :discord)
+    params.require(:social).permit(:id, :github, :linkedin, :website, :youtube, :twitter, :instagram, :discord)
   end
 end

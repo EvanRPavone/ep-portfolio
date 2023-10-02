@@ -10,11 +10,11 @@ class AfterSignupController < ApplicationController
     case step
     when 'sign_up'
       skip_step if @user.persisted?
-    when 'set_address'
-      if @user.address.nil?
-        @address = Address.new
+    when 'set_location'
+      if @user.location.nil?
+        @location = Location.new
       else
-        @address = @user.address
+        @location = @user.location
       end
     when 'set_social'
       if @user.social.nil?
@@ -38,11 +38,11 @@ class AfterSignupController < ApplicationController
       else
         render_wizard @user, status: :unprocessable_entity
       end
-    when 'set_address'
-      if @user.create_address(onboarding_params(step).except(:form_step))
+    when 'set_location'
+      if @user.create_location(onboarding_params(step).except(:form_step))
         render_wizard @user
       else
-        @address.destroy
+        @location.destroy
         render_wizard @user, status: :unprocessable_entity
       end
     when 'set_social'
@@ -67,8 +67,8 @@ class AfterSignupController < ApplicationController
                             when 'set_name'
                               required_parameters = :user
                               %i[first_name last_name]
-                            when 'set_address'
-                              required_parameters = :address
+                            when 'set_location'
+                              required_parameters = :location
                               %i[state country street city zip]
                             when 'set_social'
                               required_parameters = :social

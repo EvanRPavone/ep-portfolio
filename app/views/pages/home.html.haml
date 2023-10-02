@@ -6,8 +6,8 @@
       %h2 User Info
       %h3=current_user.full_name.titleize
       %ul
-        %li=current_user.address.state
-        %li=current_user.address.country
+        %li=current_user.location.state
+        %li=current_user.location.country
         -unless current_user.social
           %li=current_user.social.github
           %li=current_user.social.linkedin
@@ -18,8 +18,12 @@
           %li=current_user.social.discord
   %h2 ToDo:
   %ul
-    %li get rid of address model and do origin (State/Province, Country)
-    %li set default values for socials to nil
+    %li Add socials to edit form
     %li Add phone number to form
     %li Style
+    %li use better Country and state selection inputs
+    %li Add ability to follow user
+    %li filter projects by new, popular, most comments, etc..
+    %li Host it
+
   = link_to "About", about_path
