@@ -1,5 +1,25 @@
-.container{"data-controller" => "home"}
-    %h1 Evan Pavone's Portfolio
-    %p Hello there!
-
-    = link_to "About", about_path
+.container.card.mt-5{"data-controller" => "home"}
+  %h1 Portfoliyours
+  %p Welcome!
+  -if current_user
+    .container.card
+      %h2 User Info
+      %h3=current_user.full_name.titleize
+      %ul
+        %li=current_user.address.state
+        %li=current_user.address.country
+        -unless current_user.social
+          %li=current_user.social.github
+          %li=current_user.social.linkedin
+          %li=current_user.social.website
+          %li=current_user.social.youtube
+          %li=current_user.social.twitter
+          %li=current_user.social.instagram
+          %li=current_user.social.discord
+  %h2 ToDo:
+  %ul
+    %li get rid of address model and do origin (State/Province, Country)
+    %li set default values for socials to nil
+    %li Add phone number to form
+    %li Style
+  = link_to "About", about_path
