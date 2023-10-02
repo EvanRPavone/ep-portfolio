@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user
   def portfolio
-    @projects = Project.order(views: :desc).where(user_id: @user.id)
+    @projects = Project.includes([:rich_text_description]).order(views: :desc).where(user_id: @user.id)
     @user.update(views: @user.views + 1)
   end
 

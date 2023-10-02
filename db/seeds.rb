@@ -24,14 +24,27 @@ User.create(email: 'user@localhost.com',
   last_name: "User",
   username: "basicUser")
 
-10.times do |x|
-  project= Project.create(title: "Project #{x}",
-                          description: "Hello this is Project #{x}",
-                          user_id: User.first.id)
   
-  5.times do |y|
-    Comment.create(body: "Hello #{User.first.username}",
-                    user_id: User.second.id,
-                    project_id: project.id)
+elapsed = Benchmark.measure do
+  projects = []
+  admin = User.first
+  basic = User.second
+  100.times do |x|
+    puts "Creating project #{x}"
+    project= Project.new(title: "Project #{x}",
+                            description: "Hello this is Project #{x}",
+                            user: admin)
+    
+    2.times do |y|
+      puts "Creating comment #{y} for project #{x}"
+      comment = project.comments.build(body: "Hello #{User.first.username}",
+                      user: basic)
+    end
+    projects.push(project)
   end
+  Project.import(projects, recursive: true)
 end
+
+puts "Original Time: 19.611192448999645 seconds"
+puts "New Elapsed Time: #{elapsed.real} seconds"
+# puts "Created #{projects.count} projects and #{comments.count} comments in #{elapsed.real} seconds "

@@ -3,7 +3,7 @@ class AdminController < ApplicationController
   end
 
   def projects
-    @projects = Project.all.includes(:user, :comments)
+    @projects = Project.all.includes(:user)
   end
 
   def comments
@@ -15,7 +15,6 @@ class AdminController < ApplicationController
   end
 
   def show_project
-    @project = Project.includes(:user, :comments).find(params[:id])
-    @comments = @project.comments.includes(:user)
+    @project = Project.includes(:user, comments: [:user, :rich_text_body]).find(params[:id])
   end
 end

@@ -1,5 +1,5 @@
 class Comment < ApplicationRecord
-  belongs_to :project
+  belongs_to :project, counter_cache: true
   belongs_to :user
   has_rich_text :body
 
@@ -11,6 +11,7 @@ class Comment < ApplicationRecord
   private
 
   def notify_recipient
+    return if project.user == user
     CommentNotification.with(comment: self, project: project).deliver_later(project.user)
   end
 

@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects or /projects.json
   def index
-    @projects = Project.all.order(views: :desc)
+    @projects = Project.includes(:user, [:rich_text_description]).all.order(views: :desc)
   end
 
   # GET /projects/1 or /projects/1.json
@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
     # Friendly ID
     # Project.find_each(&:save)
     @project.update(views: @project.views + 1)
-    @comments = @project.comments.order(created_at: :desc)
+    @comments = @project.comments.includes(:user, [:rich_text_body]).order(created_at: :desc)
 
     mark_notifications_as_read
   end

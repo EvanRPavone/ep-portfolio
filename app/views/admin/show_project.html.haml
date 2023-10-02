@@ -22,7 +22,7 @@
     %p
       %strong #{pluralize(@project.comments.size, "Comment")}:
     %hr/
-    -@comments.each do |c|
+    -@project.comments.each do |c|
       %p
         %strong= c.user.username
       %p
