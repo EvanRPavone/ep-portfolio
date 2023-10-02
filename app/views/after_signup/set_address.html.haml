@@ -1,0 +1,27 @@
+.container
+  %h1 Set Your Address
+  =form_for(@address, url: wizard_path, method: :put) do |f|
+    -if f.object.errors.any?
+      .error_messages
+        -f.object.errors.full_messages.each do |error|
+          %p{:style => "color: red"}= error
+    .form-control
+      %legend Your Address
+      .mt-2
+        =f.text_field :street, class: "form-control", placeholder: "Street...."
+      .input-group.mt-2
+        =f.text_field :city, class: "form-control", placeholder: "City...."
+        =f.text_field :state, class: "form-control", placeholder: "State....", required: true
+        =f.text_field :zip, class: "form-control", placeholder: "Zip...."
+      .input-group.mt-2
+        =f.text_field :country, class: "form-control", placeholder: "Country....", required: true
+      .row
+        .col-10
+          .col-2.d-flex.justify-content-end.mt-2.btn-group
+            =render 'links'
+            =f.submit 'Next Step', class: "btn btn-primary"
+
+:css
+  div.field_with_errors {
+    display: inline;
+  }

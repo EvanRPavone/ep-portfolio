@@ -11,9 +11,32 @@
       %div
         Currently waiting confirmation for: #{resource.unconfirmed_email}
     .field
-      =f.label :username, "Username"
+      =f.label :first_name, "First Name"
       %br/
-      = f.text_field :username
+      = f.text_field :first_name
+    .field
+      =f.label :last_name, "Last Name"
+      %br/
+      = f.text_field :last_name
+    =fields_for :address, resource.address do |c|
+      =c.hidden_field :id
+      .container.card
+        %legend Address
+        .field
+          =c.label :street
+          =c.text_field :street
+        .field
+          =c.label :city
+          =c.text_field :city
+        .field
+          =c.label :state
+          =c.text_field :state
+        .field
+          =c.label :zip
+          =c.text_field :zip
+        .field
+          =c.label :country
+          =c.text_field :country
     .field
       = f.label :password
       %i (leave blank if you don't want to change it)

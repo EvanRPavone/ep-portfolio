@@ -18,7 +18,11 @@ class User < ApplicationRecord
   has_many :projects, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :notifications, as: :recipient, dependent: :destroy
-  
+
+  has_one :address, dependent: :destroy, inverse_of: :user, autosave: true
+  accepts_nested_attributes_for :address, allow_destroy: true
+  has_one :social, dependent: :destroy, inverse_of: :user, autosave: true
+  accepts_nested_attributes_for :social, allow_destroy: true
   # Role
   enum role: [:user, :vip, :admin]
   after_initialize :set_default_role, if: :new_record?
@@ -26,10 +30,46 @@ class User < ApplicationRecord
 
   friendly_id :portfolioslug, use: %i[slugged finders]
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["email", "first_name", "last_name", "role", "username"]
+  # Class level accessor http://apidock.com/rails/Class/cattr_accessor
+  cattr_accessor :form_steps do
+    %w[sign_up set_name set_address set_social find_users]
   end
 
+  # Instance level accessor http://apidock.com/ruby/Module/attr_accessor
+  attr_accessor :form_step
+
+  def form_step
+    @form_step ||= 'sign_up'
+  end
+
+  # Step 1
+  with_options if: -> { required_for_step?('set_name') } do |step|
+    step.validates :first_name, presence: true
+    step.validates :last_name, presence: true
+  end
+
+  # Step 2
+  validates_associated :address, if: -> { required_for_step?('set_address') }
+
+  def required_for_step?(step)
+    # All fields are required if no form step is present
+    form_step.nil?
+
+    # All fields from previous steps are required if the
+    # step param appears before or we are on the current step
+    form_steps.index(step.to_s) <= form_steps.index(form_step.to_s)
+  end
+
+  # Step 3
+  
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["email", "first_name", "last_name", "role"]
+  end
+
+  def full_name
+    "#{first_name.capitalize unless first_name.nil?} #{last_name.capitalize unless last_name.nil?}"
+  end
 
   # Friendly Id
   def portfolioslug

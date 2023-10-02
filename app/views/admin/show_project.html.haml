@@ -1,6 +1,6 @@
 .container
   %h1.text-center
-    Adminstrator
+    Administrator
   =render 'admin/nav_links'
   .text-center.mt-5
     .btn-group
@@ -13,7 +13,7 @@
   .row.mt-1
     %p
       %strong Author:
-      #{@project.user.username} | #{@project.user.email} | #{pluralize(@project.user.views, "View")}
+      #{@project.user.full_name} | #{@project.user.email} | #{pluralize(@project.user.views, "View")}
   .row.mt-1
     %p
       %strong Description:
@@ -24,7 +24,7 @@
     %hr/
     -@project.comments.each do |c|
       %p
-        %strong= c.user.username
+        %strong= c.user.full_name
       %p
         #{c.body}
       .btn-group.mb-2

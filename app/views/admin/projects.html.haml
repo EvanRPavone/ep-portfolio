@@ -14,5 +14,5 @@
         %tr
           %th{:scope => "row"}=project.id
           %td= link_to project.title.truncate(15), admin_project_path(project)
-          %td= project.user.username
+          %td= project.user.full_name
           %td= pluralize(project.comments.size, "Comment")

@@ -21,7 +21,7 @@ class CommentNotification < Noticed::Base
     @project = Project.find(params[:comment][:project_id])
     @comment = Comment.find(params[:comment][:id])
     @user = User.find(@comment.user_id)
-    "#{@user.username} commented on #{@project.title.truncate(10)}"
+    "#{@user.full_name} commented on #{@project.title.truncate(10)}"
   end
   #
   def url

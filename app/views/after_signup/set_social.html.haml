@@ -1,0 +1,28 @@
+.container
+  %h1 Link Your Socials (optional)
+  =form_for(@social, url: wizard_path, method: :put) do |f|
+    -if f.object.errors.any?
+      .error_messages
+        -f.object.errors.full_messages.each do |error|
+          %p{:style => "color: red"}= error
+    .form-control
+      %legend Your Socials
+      .input-group.mt-2
+        =f.text_field :github, class: "form-control", placeholder: "GitHub...."
+        =f.text_field :linkedin, class: "form-control", placeholder: "LinkedIn...."
+        =f.text_field :website, class: "form-control", placeholder: "Website...."
+      .input-group.mt-2
+        =f.text_field :youtube, class: "form-control", placeholder: "Youtube...."
+        =f.text_field :twitter, class: "form-control", placeholder: "X (Twitter)...."
+        =f.text_field :instagram, class: "form-control", placeholder: "Instagram...."
+        =f.text_field :discord, class: "form-control", placeholder: "Discord Username...."
+      .row
+        .col-10
+          .col-2.d-flex.justify-content-end.mt-2.btn-group
+            =render 'links'
+            =f.submit 'Next Step', class: "btn btn-primary"
+
+:css
+  div.field_with_errors {
+    display: inline;
+  }
