@@ -8,12 +8,30 @@
 
 
 # Create 10 Projects
+
+User.create(email: 'admin@localhost.com',
+  password: 'password',
+  password_confirmation: 'password',
+  first_name: "Evan",
+  last_name: "Pavone",
+  username: "localhost",
+  role: User.roles[:admin])
+
+User.create(email: 'user@localhost.com',
+  password: 'password',
+  password_confirmation: 'password',
+  first_name: "Basic",
+  last_name: "User",
+  username: "basicUser")
+
 10.times do |x|
-    Project.create(title: "Title #{x}", description: "Hello Project #{x}", user_id: 1, github: "https://github.com/EvanRPavone", website: "https://github.com/EvanRPavone", youtube:"https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley")
+  project= Project.create(title: "Project #{x}",
+                          description: "Hello this is Project #{x}",
+                          user_id: User.first.id)
+  
+  5.times do |y|
+    Comment.create(body: "Hello #{User.first.username}",
+                    user_id: User.second.id,
+                    project_id: project.id)
+  end
 end
-
-# Create development admin
-User.create(id: 1, email: "admin@localhost.com", password: "password", role: "Admin", first_name: "Admin", last_name: "Local", username: "localhost")
-
-#Create development user
-User.create(id: 2, email: "user@localhost.com", password: "password", role: "User", first_name: "Basic", last_name: "User", username: "BasicUser")

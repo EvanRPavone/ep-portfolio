@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  extend FriendlyId
   # Original Plan
   # User has a portfolio they can send to people from the site
   # User can upload new projects to their portfolio and have a page displaying their work, about them, contact info, whatever they want
@@ -17,12 +18,31 @@ class User < ApplicationRecord
   has_many :projects, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :notifications, as: :recipient, dependent: :destroy
-  # has_one :role
+  
+  # Role
+  enum role: [:user, :vip, :admin]
+  after_initialize :set_default_role, if: :new_record?
   #has_many :fans
+
+  friendly_id :portfolioslug, use: %i[slugged finders]
 
   def self.ransackable_attributes(auth_object = nil)
     ["email", "first_name", "last_name", "role", "username"]
   end
 
 
+  # Friendly Id
+  def portfolioslug
+    "#{first_name}-#{last_name}"
+  end
+
+  def should_generate_new_friendly_id?
+    last_name_changed? || slug.blank?
+  end
+
+  private
+
+  def set_default_role
+    self.role ||= :user
+  end
 end

@@ -9,6 +9,8 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1 or /projects/1.json
   def show
+    # Friendly ID
+    # Project.find_each(&:save)
     @project.update(views: @project.views + 1)
     @comments = @project.comments.order(created_at: :desc)
 
@@ -67,6 +69,11 @@ class ProjectsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       @project = Project.find(params[:id])
+
+      # If old id or numeric id was used to find the record, then
+      # the request slug will not match the current slug, and we should do
+      # a 301 redirect to the new path
+      redirect_to @project, :status => :moved_permanently if params[:id] != @project.slug
     end
 
     # Only allow a list of trusted parameters through.
