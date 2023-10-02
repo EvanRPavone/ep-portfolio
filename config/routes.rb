@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
+  resources :after_signup
+
   # Profile/Portfolio
   get 'p/:id', to: 'users#portfolio', as: 'user'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
