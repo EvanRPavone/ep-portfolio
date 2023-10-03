@@ -11,6 +11,14 @@
       %div
         Currently waiting confirmation for: #{resource.unconfirmed_email}
     .field
+      = f.label :phone_number
+      %br/
+      = f.text_field :phone_number, class: 'form-control', autofocus: true, placeholder: 'xxx-xxx-xxxx', value: number_to_phone(@user.phone_number, area_code: true)
+    .field
+      =f.label :avatar
+      %br/
+      =f.file_field :avatar
+    .field
       =f.label :first_name, "First Name"
       %br/
       = f.text_field :first_name
@@ -28,6 +36,17 @@
         .field
           =c.label :country
           =c.text_field :country
+    .form-control
+      %legend Your Socials
+      .input-group.mt-2
+        =f.text_field :github, class: "form-control", placeholder: "GitHub...."
+        =f.text_field :linkedin, class: "form-control", placeholder: "LinkedIn...."
+        =f.text_field :website, class: "form-control", placeholder: "Website...."
+      .input-group.mt-2
+        =f.text_field :youtube, class: "form-control", placeholder: "Youtube...."
+        =f.text_field :twitter, class: "form-control", placeholder: "Twitter (X)...."
+        =f.text_field :instagram, class: "form-control", placeholder: "Website...."
+        =f.text_field :discord, class: "form-control", placeholder: "Discord Username...."
     .field
       = f.label :password
       %i (leave blank if you don't want to change it)

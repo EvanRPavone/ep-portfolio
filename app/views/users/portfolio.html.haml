@@ -1,7 +1,14 @@
-.container
-  %h1.display-3 #{@user.first_name} #{@user.last_name}'s Portfolio
-  %span.right= pluralize(@user.views, "view")
-  %hr/
+.container.mt-5
+  .row
+    .col-4
+      =image_tag(@user.avatar,style:"width: 150px; height: 150px; border-radius: 100%;") if @user.avatar.attached?
+    .col-8
+      %h1.display-3 #{@user.first_name} #{@user.last_name}'s Portfolio
+      %div.justify-content-end
+        .d-flex.mt-3
+          %span Posted #{pluralize(@user.comments.size, "Comment")} | #{pluralize(@user.views, "Portfolio View")} | #{pluralize(@user.projects.size, "Project")} | #{pluralize(@total_views, "Total Project View")} 
+      %hr/
+.container.mt-2
   .card-mb-4#projects
     .row
       -@projects.each do |project|
@@ -14,10 +21,14 @@
                   %span.fs-6.lead.text-muted
                     = pluralize(project.views, "view")
                 =link_to "Show", project, class: "btn btn-sm btn-light"
-              %p.border-top.card-text= project.description
+              %p.border-top.card-text= project.description.to_plain_text.truncate(50)
               .btn-toolbar.justify-content-end.border-top{:role=> "toolbar"}
                 .d-flex.mt-3
                   =link_to "GitHub", project, class: "btn btn-sm btn-dark"
                   =link_to "Website", project, class: "btn btn-sm btn-primary ms-2 me-2"
                   =link_to "Youtube", project, class: "btn btn-sm btn-danger"
+              %hr/
+              .d-flex.justify-content-between
+                %span #{pluralize(project.comments.size, "Comment")}
+                %span Posted #{time_ago_in_words(project.created_at)} ago
   %hr/

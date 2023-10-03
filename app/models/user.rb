@@ -18,16 +18,13 @@ class User < ApplicationRecord
   has_many :projects, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :notifications, as: :recipient, dependent: :destroy
-
   has_one :location, dependent: :destroy, inverse_of: :user, autosave: true
   accepts_nested_attributes_for :location, allow_destroy: true
-  has_one :social, dependent: :destroy, inverse_of: :user, autosave: true
-  accepts_nested_attributes_for :social, allow_destroy: true
   # Role
   enum role: [:user, :vip, :admin]
   after_initialize :set_default_role, if: :new_record?
   #has_many :fans
-
+  has_one_attached :avatar
   friendly_id :portfolioslug, use: %i[slugged finders]
 
   # Class level accessor http://apidock.com/rails/Class/cattr_accessor
