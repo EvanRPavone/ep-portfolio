@@ -14,6 +14,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+
   # Relations
   has_many :projects, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -39,8 +40,6 @@ class User < ApplicationRecord
 
   # Step 1
   with_options if: -> { required_for_step?('set_name') } do |step|
-    step.validates :first_name, presence: true
-    step.validates :last_name, presence: true
     step.validates :country, presence: true
   end
 
@@ -71,6 +70,10 @@ class User < ApplicationRecord
 
   def should_generate_new_friendly_id?
     last_name_changed? || slug.blank?
+  end
+
+  def country_name
+    ISO3166::Country.find_country_by_alpha2(country).common_name
   end
 
   private

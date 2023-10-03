@@ -326,6 +326,7 @@ DEPENDENCIES
   bootstrap
   bullet (~> 7.0)
   capybara
+  countries (~> 5.6)
   country_select (~> 8.0)
   debug
   devise

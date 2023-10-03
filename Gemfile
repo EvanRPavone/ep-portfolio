@@ -100,3 +100,5 @@ gem "wicked", "~> 2.0"
 gem "jsbundling-rails", "~> 1.2"
 
 gem "country_select", "~> 8.0"
+
+gem "countries", "~> 5.6"

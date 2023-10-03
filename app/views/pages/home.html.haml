@@ -6,7 +6,7 @@
       %h2 User Info
       %h3=current_user.full_name.titleize
       %ul
-        %li=current_user.country
+        %li=current_user.country_name
         -if current_user.github.present?
           %li= current_user.github
         -if current_user.linkedin.present?
@@ -21,9 +21,9 @@
           %li= current_user.instagram
   %h2 ToDo:
   %ul
-    %li use better Country and state selection inputs (If united States, show state selection)
-    %li make homepage list all new projects/portfolios
+    %li make PFP bigger, add user.about to portfolio
     %li display socials on portfolio
+    %li make homepage list all new projects/portfolios
     %li Pagination
     %li Style
     %li Host it
