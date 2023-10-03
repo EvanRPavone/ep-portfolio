@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_02_191328) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_03_150637) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -108,20 +108,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_191328) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
-  create_table "socials", force: :cascade do |t|
-    t.string "github"
-    t.string "linkedin"
-    t.string "website"
-    t.string "youtube"
-    t.string "twitter"
-    t.string "instagram"
-    t.string "discord"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_socials_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -137,12 +123,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_191328) do
     t.string "slug"
     t.bigint "location_id"
     t.string "phone_number"
-    t.bigint "social_id"
+    t.string "github"
+    t.string "linkedin"
+    t.string "website"
+    t.string "youtube"
+    t.string "twitter"
+    t.string "instagram"
+    t.string "discord"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["location_id"], name: "index_users_on_location_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
-    t.index ["social_id"], name: "index_users_on_social_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -151,7 +142,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_191328) do
   add_foreign_key "comments", "users"
   add_foreign_key "locations", "users"
   add_foreign_key "projects", "users"
-  add_foreign_key "socials", "users"
   add_foreign_key "users", "locations"
-  add_foreign_key "users", "socials"
 end

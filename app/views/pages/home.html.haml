@@ -8,22 +8,33 @@
       %ul
         %li=current_user.location.state
         %li=current_user.location.country
-        -unless current_user.social
-          %li=current_user.social.github
-          %li=current_user.social.linkedin
-          %li=current_user.social.website
-          %li=current_user.social.youtube
-          %li=current_user.social.twitter
-          %li=current_user.social.instagram
-          %li=current_user.social.discord
+        -if current_user.github.present?
+          %li= current_user.github
+        -if current_user.linkedin.present?
+          %li= current_user.linkedin
+        -if current_user.website.present?
+          %li= current_user.website
+        -if current_user.youtube.present?
+          %li= current_user.youtube
+        -if current_user.twitter.present?
+          %li= current_user.twitter
+        -if current_user.instagram.present?
+          %li= current_user.instagram
   %h2 ToDo:
   %ul
-    %li Add socials to edit form
-    %li Add phone number to form
+    %li use better Country and state selection inputs (If united States, show state selection)
+    %li make homepage list all new projects/portfolios
+    %li display socials on portfolio
+    %li Pagination
     %li Style
-    %li use better Country and state selection inputs
-    %li Add ability to follow user
-    %li filter projects by new, popular, most comments, etc..
     %li Host it
+    -# This will be an update. getting list above done first then hosting
+    %li Add ability to follow user (fans)
+    %li fans can opt in/out of email notifications
+    %li Late Night Ideas linked to user. Shown only to current user. Be able to text it to database (Twilio just reverse)?
+    %li have a "Portfolio of the week" or something
+    %li filter projects by new, popular, most comments, etc..
 
+  %div#dialog
+    %p This be dialog
   = link_to "About", about_path

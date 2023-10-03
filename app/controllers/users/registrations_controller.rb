@@ -23,8 +23,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def update
     current_user.build_location(location_params) unless current_user.location
     current_user.location.update(location_params)
-    current_user.build_social(social_params) unless current_user.social
-    current_user.social.update(social_params)
     super
   end
 
@@ -52,14 +50,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
     devise_parameter_sanitizer.permit(:account_update, keys: [:email,
+                                                              :avatar,
                                                               :first_name,
                                                               :last_name,
                                                               :password,
                                                               :phone_number,
                                                               :password_confirmation,
                                                               :current_password,
-                                                              { location: %i[state country] },
-                                                              { social: %i[github linkedin website youtube twitter instagram discord] }])
+                                                              { location: %i[state country] }])
   end
 
   def after_sign_up_path_for(resource)
@@ -80,9 +78,5 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def location_params
     params.require(:location).permit(:id, :state, :country)
-  end
-
-  def social_params
-    params.require(:social).permit(:id, :github, :linkedin, :website, :youtube, :twitter, :instagram, :discord)
   end
 end

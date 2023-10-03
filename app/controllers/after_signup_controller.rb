@@ -16,12 +16,6 @@ class AfterSignupController < ApplicationController
       else
         @location = @user.location
       end
-    when 'set_social'
-      if @user.social.nil?
-        @social = Social.new
-      else
-        @social = @user.social
-      end
     when 'find_users'
       @users = User.all
     end
@@ -46,10 +40,9 @@ class AfterSignupController < ApplicationController
         render_wizard @user, status: :unprocessable_entity
       end
     when 'set_social'
-      if @user.create_social(onboarding_params(step).except(:form_step))
+      if @user.update(onboarding_params(step))
         render_wizard @user
       else
-        @social.destroy
         render_wizard @user, status: :unprocessable_entity
       end
     end
@@ -66,12 +59,12 @@ class AfterSignupController < ApplicationController
     permitted_attributes =  case step
                             when 'set_name'
                               required_parameters = :user
-                              %i[first_name last_name]
+                              %i[first_name last_name phone_number]
                             when 'set_location'
                               required_parameters = :location
                               %i[state country street city zip]
                             when 'set_social'
-                              required_parameters = :social
+                              required_parameters = :user
                               %i[github linkedin website youtube twitter instagram discord]
                             end
 
