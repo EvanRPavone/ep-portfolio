@@ -57,15 +57,6 @@ gem 'html2haml', '~> 2.3' # Converter
 # Bootstrap
 gem "bootstrap"
 
-# Use jquery as the JavaScript librar
-gem 'jquery-rails'
-
-# Use jquery-ui for pretty UI
-gem 'jquery-ui-rails'
-
-# Use Sass to process CSS
-gem "sassc-rails"
-
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
@@ -103,3 +94,9 @@ gem "bullet", "~> 7.0"
 gem "activerecord-import", "~> 1.5"
 
 gem "wicked", "~> 2.0"
+
+gem "city-state", "~> 1.1"
+
+gem "country_select", "~> 8.0"
+
+gem "jsbundling-rails", "~> 1.2"

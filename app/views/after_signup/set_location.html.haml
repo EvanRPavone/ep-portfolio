@@ -8,8 +8,8 @@
     .form-control
       %legend Location
       .input-group.mt-2
+        =f.country_select :country, { include_blank: 'Select a country', priority_countries: ["US", "GB", "CA"] }, required: true, class: 'form-select'
         =f.text_field :state, class: "form-control", placeholder: "State....", required: true
-        =f.text_field :country, class: "form-control", placeholder: "Country....", required: true
       .row
         .col-10
           .col-2.d-flex.justify-content-end.mt-2.btn-group
@@ -20,3 +20,8 @@
   div.field_with_errors {
     display: inline;
   }
+
+:javascript
+  $(document).ready( function() {
+    console.log("Hello?")
+  } );
