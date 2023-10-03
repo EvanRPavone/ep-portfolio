@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_03_150637) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_03_222958) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -121,8 +121,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_03_150637) do
     t.string "last_name"
     t.integer "views", default: 0
     t.string "slug"
-    t.bigint "location_id"
     t.string "phone_number"
+    t.string "country"
     t.string "github"
     t.string "linkedin"
     t.string "website"
@@ -130,8 +130,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_03_150637) do
     t.string "twitter"
     t.string "instagram"
     t.string "discord"
+    t.text "about"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["location_id"], name: "index_users_on_location_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
   end
@@ -142,5 +142,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_03_150637) do
   add_foreign_key "comments", "users"
   add_foreign_key "locations", "users"
   add_foreign_key "projects", "users"
-  add_foreign_key "users", "locations"
 end

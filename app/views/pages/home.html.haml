@@ -6,8 +6,7 @@
       %h2 User Info
       %h3=current_user.full_name.titleize
       %ul
-        %li=current_user.location.state
-        %li=current_user.location.country
+        %li=current_user.country
         -if current_user.github.present?
           %li= current_user.github
         -if current_user.linkedin.present?

@@ -4,6 +4,6 @@
   %br/
   %h3=link_to "Finish", next_wizard_path
   -@users.all.each do |user|
-    %p #{user.first_name.capitalize} #{user.last_name.capitalize}
+    %p #{user.full_name}
     %p=link_to "View Portfolio", user_path(user), class: 'btn btn-sm btn-primary'
   =render "after_signup/links"

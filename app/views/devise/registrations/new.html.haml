@@ -6,10 +6,13 @@
       = f.label :email
       %br/
       = f.email_field :email, autofocus: true, autocomplete: "email"
-    .field
-      = f.label :phone_number
-      %br/
-      = f.telephone_field :phone_number, class: 'form-control', autofocus: true, placeholder: 'xxx-xxx-xxxx', value: number_to_phone(@user.phone_number, area_code: true)
+    .row.mb-3
+      .col-6
+        =f.label :first_name, "First Name",class: "form-label"
+        =f.text_field :first_name, class: "form-control", placeholder: "First name....", required: true
+      .col-6
+        =f.label :last_name, "Last Name",class: "form-label"
+        =f.text_field :last_name, class: "ms-2 form-control", placeholder: "Last name....", required: true
     .field
       = f.label :password
       - if @minimum_password_length

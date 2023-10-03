@@ -20,11 +20,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  def update
-    current_user.build_location(location_params) unless current_user.location
-    current_user.location.update(location_params)
-    super
-  end
+  # def update
+  #   super
+  # end
 
   # DELETE /resource
   # def destroy
@@ -57,7 +55,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
                                                               :phone_number,
                                                               :password_confirmation,
                                                               :current_password,
-                                                              { location: %i[state country] }])
+                                                              :country,
+                                                              :about])
   end
 
   def after_sign_up_path_for(resource)
@@ -76,7 +75,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def location_params
-    params.require(:location).permit(:id, :state, :country)
-  end
 end

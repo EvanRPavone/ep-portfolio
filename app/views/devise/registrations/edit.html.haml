@@ -26,16 +26,10 @@
       =f.label :last_name, "Last Name"
       %br/
       = f.text_field :last_name
-    =fields_for :location, resource.location do |c|
-      =c.hidden_field :id
-      .container.card
-        %legend Where are you located?
-        .field
-          =c.label :state
-          =c.text_field :state
-        .field
-          =c.label :country
-          =c.text_field :country
+    .field
+      =f.label :country
+      %br/
+      =f.country_select :country, { priority_countries: ["US", "CA", "GB"], include_blank: 'Select a country' }, required: true, class: 'form-select'
     .form-control
       %legend Your Socials
       .input-group.mt-2

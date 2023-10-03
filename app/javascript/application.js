@@ -9,5 +9,4 @@ import "./src/jquery"
 import "./src/jquery-ui"
 
 $(function() {
-  $('#dialog').dialog()
 })

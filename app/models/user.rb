@@ -18,8 +18,6 @@ class User < ApplicationRecord
   has_many :projects, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :notifications, as: :recipient, dependent: :destroy
-  has_one :location, dependent: :destroy, inverse_of: :user, autosave: true
-  accepts_nested_attributes_for :location, allow_destroy: true
   # Role
   enum role: [:user, :vip, :admin]
   after_initialize :set_default_role, if: :new_record?
@@ -29,7 +27,7 @@ class User < ApplicationRecord
 
   # Class level accessor http://apidock.com/rails/Class/cattr_accessor
   cattr_accessor :form_steps do
-    %w[sign_up set_name set_location set_social find_users]
+    %w[sign_up set_name set_social find_users]
   end
 
   # Instance level accessor http://apidock.com/ruby/Module/attr_accessor
@@ -43,10 +41,8 @@ class User < ApplicationRecord
   with_options if: -> { required_for_step?('set_name') } do |step|
     step.validates :first_name, presence: true
     step.validates :last_name, presence: true
+    step.validates :country, presence: true
   end
-
-  # Step 2
-  validates_associated :location, if: -> { required_for_step?('set_location') }
 
   def required_for_step?(step)
     # All fields are required if no form step is present

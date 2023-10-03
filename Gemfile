@@ -95,8 +95,8 @@ gem "activerecord-import", "~> 1.5"
 
 gem "wicked", "~> 2.0"
 
-gem "city-state", "~> 1.1"
 
-gem "country_select", "~> 8.0"
 
 gem "jsbundling-rails", "~> 1.2"
+
+gem "country_select", "~> 8.0"
