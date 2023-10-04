@@ -1,6 +1,6 @@
 .d-flex.flex-column{:id=>"#{dom_id project}"}
   .p-2
-    %h6= pluralize(project.views, "view")
+    %h6= pluralize(project.hits, "view")
     %hr/
     %p= project.description
 

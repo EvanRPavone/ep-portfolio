@@ -26,6 +26,8 @@ class User < ApplicationRecord
   has_one_attached :avatar
   friendly_id :portfolioslug, use: %i[slugged finders]
 
+  acts_as_punchable
+
   # Class level accessor http://apidock.com/rails/Class/cattr_accessor
   cattr_accessor :form_steps do
     %w[sign_up set_name set_social find_users]

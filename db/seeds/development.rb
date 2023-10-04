@@ -19,7 +19,7 @@ admin = User.first_or_create!(email: "admin@localhost.com",
                               country: "US",
                               role: User.roles[:admin])
                     
-basic = User.first_or_create!(email: "user@localhost.com",
+provolone = User.first_or_create!(email: "user@localhost.com",
                               password: "password",
                               password_confirmation: "password",
                               first_name: "Mike",
@@ -28,16 +28,12 @@ basic = User.first_or_create!(email: "user@localhost.com",
 
 elapsed = Benchmark.measure do
   projects = []
-  100.times do |x|
+  50.times do |x|
     puts "Creating project #{x}"
-    project= Project.new(title: "Project #{x}",
-                        description: "Hello this is Project #{x}",
-                        user: admin)
-    
+    project= Project.new(title: "Project #{x}", description: "Hello this is Project #{x}", user: admin)
     2.times do |y|
       puts "Creating comment #{y} for project #{x}"
-      comment = project.comments.build(body: "Hello #{admin.first_name}",
-                                      user: basic)
+      comment = project.comments.build(body: "Hello #{admin.first_name}", user: provolone)
     end
     projects.push(project)
   end

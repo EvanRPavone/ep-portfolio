@@ -6,10 +6,9 @@
       %h1.display-3 #{@user.full_name}'s Portfolio
       %div.justify-content-end
         .d-flex.mt-3
-          %span Posted #{pluralize(@user.comments.size, "Comment")} | #{pluralize(@user.views, "Portfolio View")} | #{pluralize(@user.projects.size, "Project")} | #{pluralize(@total_views, "Total Project View")} 
-      %hr/
-.container.mt-2
-  .card-mb-4#projects
+          %span Posted #{pluralize(@user.comments.size, "Comment")} | #{pluralize(@user.hits, "Portfolio View")} | #{pluralize(@user.projects.size, "Project")} | #{pluralize(@total_views, "Total Project View")} 
+.container.card.mt-2
+  .card.m-4#projects
     .row
       -@projects.each do |project|
         .col-6.mb-4
@@ -19,7 +18,7 @@
                 %h5.card-title
                   = project.title
                   %span.fs-6.lead.text-muted
-                    = pluralize(project.views, "view")
+                    = pluralize(project.hits, "view")
                 =link_to "Show", project, class: "btn btn-sm btn-light"
               %p.border-top.card-text= project.description.to_plain_text.truncate(50)
               .btn-toolbar.justify-content-end.border-top{:role=> "toolbar"}
@@ -31,4 +30,5 @@
               .d-flex.justify-content-between
                 %span #{pluralize(project.comments.size, "Comment")}
                 %span Posted #{time_ago_in_words(project.created_at)} ago
+    =pagy_bootstrap_nav(@pagy).html_safe if @pagy.pages > 1
   %hr/

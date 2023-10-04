@@ -13,7 +13,7 @@
   .row.mt-1
     %p
       %strong Author:
-      #{@project.user.full_name} | #{@project.user.email} | #{pluralize(@project.user.views, "View")}
+      #{@project.user.full_name} | #{@project.user.email} | #{pluralize(@project.user.hits, "View")}
   .row.mt-1
     %p
       %strong Description:

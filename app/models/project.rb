@@ -13,12 +13,14 @@ class Project < ApplicationRecord
 
   friendly_id :title, use: %i[slugged history finders]
 
+  acts_as_punchable
+
   def should_generate_new_friendly_id?
     title_changed? || slug.blank?
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "github", "id", "title", "updated_at", "user_id", "views", "website", "youtube"]
+    ["created_at", "github", "id", "title", "updated_at", "user_id", "website", "youtube"]
   end
 
   def self.ransackable_associations(auth_object = nil)

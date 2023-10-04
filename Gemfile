@@ -104,3 +104,5 @@ gem "country_select", "~> 8.0"
 gem "countries", "~> 5.6"
 
 gem 'pagy'
+
+gem "punching_bag"

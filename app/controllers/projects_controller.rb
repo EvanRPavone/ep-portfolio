@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
     @pagy, @projects = if params[:filter] == "recent"
                         @pagy, @projects = pagy(Project.includes([:rich_text_description], :screenshots_attachments).all.order(created_at: :desc))
                       else
-                        @pagy, @projects = pagy(Project.includes([:rich_text_description], :screenshots_attachments).all.order(views: :desc))
+                        @pagy, @projects = pagy(Project.includes([:rich_text_description], :screenshots_attachments).sort_by_popularity('DESC'))
                       end
   end
 
@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
   def show
     # Friendly ID
     # Project.find_each(&:save)
-    @project.update(views: @project.views + 1)
+    @project.punch(request)
     @comments = @project.comments.includes(:user, [:rich_text_body]).order(created_at: :desc)
 
     mark_notifications_as_read
