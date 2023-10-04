@@ -1,5 +1,5 @@
 .container
-  %h1.display-3 Projects
+  %h1.display-3 #{params[:filter].titleize} Projects
   %hr/
 .container.card.mt-2.mb-5
   .row.row-cols-1.row-cols-md-3.g-4.m-3
@@ -16,6 +16,7 @@
             %p.card-text.d-flex.justify-content-between
               %small.text-muted Posted #{time_ago_in_words(project.created_at)} ago
               =link_to "View", project_path(project), class: "btn btn-sm btn-secondary"
+  =pagy_bootstrap_nav(@pagy).html_safe if @pagy.pages > 1
 
 %br
 

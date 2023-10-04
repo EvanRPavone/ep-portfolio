@@ -4,11 +4,11 @@ class ProjectsController < ApplicationController
 
   # GET /projects or /projects.json
   def index
-    if params[:filter] == "recent"
-      @projects = Project.includes([:rich_text_description], :screenshots_attachments).all.order(created_at: :desc)
-    else
-      @projects = Project.includes([:rich_text_description], :screenshots_attachments).all.order(views: :desc)
-    end
+    @pagy, @projects = if params[:filter] == "recent"
+                        @pagy, @projects = pagy(Project.includes([:rich_text_description], :screenshots_attachments).all.order(created_at: :desc))
+                      else
+                        @pagy, @projects = pagy(Project.includes([:rich_text_description], :screenshots_attachments).all.order(views: :desc))
+                      end
   end
 
   # GET /projects/1 or /projects/1.json

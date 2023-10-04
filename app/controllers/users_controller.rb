@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user
   def portfolio
-    @projects = @user.projects.includes([:rich_text_description]).order(views: :desc)
+    @pagy, @projects = pagy(@user.projects.includes([:rich_text_description]).order(views: :desc))
     @user.update(views: @user.views + 1)
     @total_views = 0
     @projects.each do |proj|
