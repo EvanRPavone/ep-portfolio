@@ -1,15 +1,21 @@
 .container
-  %h1.display-3 Your Projects
+  %h1.display-3 Projects
   %hr/
-  #projects
+.container.card.mt-2.mb-5
+  .row.row-cols-1.row-cols-md-3.g-4.m-3
     -@projects.each do |project|
-      %h2.text-center= project.title
-      %h4 Author: #{project.user.full_name}
-      =render project
-      .d-flex.justify-content-start
-        %p
-          =link_to "Show", project, class: "btn btn-primary"
-      %hr/
+      .col
+        .card
+          -if project.screenshots.attached?
+            =image_tag project.screenshots[0]
+          -else
+            =image_tag "default.jpg"
+          .card-body
+            %h5.card-title= project.title
+            %p.card-text= project.description.to_plain_text.truncate(25)
+            %p.card-text.d-flex.justify-content-between
+              %small.text-muted Posted #{time_ago_in_words(project.created_at)} ago
+              =link_to "View", project_path(project), class: "btn btn-sm btn-secondary"
 
 %br
 
