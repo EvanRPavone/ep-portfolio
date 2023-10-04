@@ -2,11 +2,11 @@
   .d-flex.justify-content-between
     %h2.display-2.ms-3= @project.title
   .d-flex.justify-content-between.ms-3.me-3
-    %span.text-muted.bottom-0.end-0= @project.user.full_name
-  .d-flex.justify-content-end
-    -if current_user == @project.user
-      =link_to "Edit", edit_project_path(@project), class: "btn btn-sm btn-secondary me-2"
-    =link_to "View Portfolio", user_path(@project.user), class: "btn btn-success"
+    %span.text-muted= @project.user.full_name
+    .d-flex.justify-content-end.mb-2
+      -if current_user == @project.user
+        =link_to "Edit", edit_project_path(@project), class: "btn btn-sm btn-secondary me-2"
+      =link_to "View Portfolio", user_path(@project.user), class: "btn btn-sm btn-success"
   %hr.m-1/
   .d-flex.justify-content-between.ms-3.me-3.mb-3
     %small.text-muted Posted #{time_ago_in_words(@project.created_at)} ago
@@ -19,9 +19,12 @@
         =image_tag "default.jpg", class:"figure-img rounded img-fluid rounded mx-auto d-block"
     .card-body
       .d-flex.justify-content-end
-        =link_to "Github", "#", class: "btn btn-dark me-2"
-        =link_to "Youtube", "#", class: "btn btn-danger me-2"
-        =link_to "Website", "#", class: "btn btn-info"
+        -if @project.github
+          =link_to "GitHub", @project.github, class: "btn btn-dark"
+        -if @project.youtube
+          =link_to "Youtube", @project.youtube, class: "btn btn-danger"
+        -if @project.website
+          =link_to "Website", @project.website, class: "btn btn-info"
       %p.card-text=@project.description
   %hr.m-1/
   .container
