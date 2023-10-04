@@ -1,15 +1,13 @@
-%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+%nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.bg-gradient
   .container-fluid
     = link_to 'Portfoliyours', root_path, {:class => "navbar-brand"}
     %button.navbar-toggler{:type => "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#navbarSupportedContent", "aria-controls" =>"navbarSupportedContent", "aria-expanded" =>"false", "aria-label" => "Toggle navigation"}
       %span.navbar-toggler-icon
     .collapse.navbar-collapse#navbarSupportedContent
       %ul.navbar-nav.me-auto.mb-2.mb-lg-0
-        %li.nav-item
-          = link_to "Home", root_path, {:class => "nav-link active", :aria_current => "page"}
-        %li.nav-item
-          = link_to "Activity", about_path, {:class => "nav-link"}
         - if current_user
+          %li.nav-item
+            = link_to "Your Late Night Ideas", about_path, {:class => "nav-link"}
           %li.nav-item
             = link_to "Your Portfolio", user_path(current_user), {:class => "nav-link"}
       .d-flex

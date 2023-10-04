@@ -1,5 +1,6 @@
-.container
+.container.mt-3.mb-3
   = form_with model: [project, comment] do |f|
     .form-control
       =f.rich_text_area :body
-      =f.submit submit_label, class: "btn btn-primary mt-1"
+      .d-flex.justify-content-end.m-3
+        =f.submit submit_label, class: "btn btn-sm btn-primary mt-1"

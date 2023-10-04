@@ -1,4 +1,12 @@
 -if notice
-  %p.notice= notice
+  .alert.alert-success.d-flex.align-items-center{role: "alert"}
+    %svg.bi.flex-shrink-0.me-2{"aria-label" => "Success:", height: "24", role: "img", width: "24"}
+      %use{"xlink:href" => "#check-circle-fill"}
+    %div
+      %p.notice= notice
 - elsif alert
-  %p.alert= alert
+  .alert.alert-danger.d-flex.align-items-center{role: "alert"}
+    %svg.bi.flex-shrink-0.me-2{"aria-label" => "Danger:", height: "24", role: "img", width: "24"}
+      %use{"xlink:href" => "#exclamation-triangle-fill"}
+    %div
+      %p.alert= alert

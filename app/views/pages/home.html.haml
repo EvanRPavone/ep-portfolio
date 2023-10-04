@@ -1,5 +1,5 @@
 -if current_user
-  .container.card
+  .container.card.border.border-success.border-5
     %h2 User Info
     %h3=current_user.full_name.titleize
     %ul
@@ -16,31 +16,29 @@
         %li= current_user.twitter
       -if current_user.instagram.present?
         %li= current_user.instagram
-.container.card.mt-5{"data-controller" => "home"}
+.container.card.mt-5.mb-3.border.border-success.border-3{"data-controller" => "home"}
   %h1 Portfoliyours
   %p Welcome!
   %h2 ToDo:
   %ul
+    %li VERSION 1
     %li make PFP bigger, add user.about to portfolio
     %li display socials on portfolio
-    %li make homepage list all new projects/portfolios
-    %li Pagination
     %li Style
     %li Host it
     -# This will be an update. getting list above done first then hosting
+    %hr/
+    VERSION 2
     %li Add ability to follow user (fans)
     %li fans can opt in/out of email notifications
     %li Late Night Ideas linked to user. Shown only to current user. Be able to text it to database (Twilio just reverse)?
     %li have a "Portfolio of the week" or something
     %li filter projects by new, popular, most comments, etc..
-  %hr/
-  %h2 Trending:
-  %hr/
-  
-.container.card.mt-2.mb-5
-  %h2 Recent:
-  .row.row-cols-1.row-cols-md-3.g-4
-    -@projects.each do |project|
+.container.card.mt-2.col-8.mb-3.border.border-success.border-3
+  %h2.display-2.ms-3 Projects of the Week
+  %hr.m-1/
+  .row.row-cols-1.row-cols-md-3.g-4.m-3
+    -@trending_projects.each do |project|
       .col
         .card
           -if project.screenshots.attached?
@@ -48,13 +46,37 @@
           -else
             =image_tag "default.jpg"
           .card-body
-            %h5.card-title= project.title
+            .d-flex.justify-content-between
+              %h5.card-title= project.title
+              %span= pluralize(project.hits, "view")
             %p.card-text= project.description.to_plain_text.truncate(25)
             %p.card-text.d-flex.justify-content-between
               %small.text-muted Posted #{time_ago_in_words(project.created_at)} ago
               =link_to "View", project_path(project), class: "btn btn-sm btn-secondary"
   %div.d-flex.flex-row-reverse
-    =link_to "View More",projects_path(:filter => :recent), class: "btn btn-primary"
+    =link_to "View Trending Projects of the Week",projects_path(:filter => :trending), class: "btn btn-primary m-3"
+
+.container.card.col-8.mt-2.mb-3.border.border-success.border-3
+  %h2.display-2.ms-3 Recent Projects
+  %hr.m-1/
+  .row.row-cols-1.row-cols-md-3.g-4.m-3
+    -@recent_projects.each do |project|
+      .col
+        .card
+          -if project.screenshots.attached?
+            =image_tag project.screenshots[0]
+          -else
+            =image_tag "default.jpg"
+          .card-body
+            .d-flex.justify-content-between
+              %h5.card-title= project.title
+              %span= pluralize(project.hits, "view")
+            %p.card-text= project.description.to_plain_text.truncate(25)
+            %p.card-text.d-flex.justify-content-between
+              %small.text-muted Posted #{time_ago_in_words(project.created_at)} ago
+              =link_to "View", project_path(project), class: "btn btn-sm btn-secondary"
+  %div.d-flex.flex-row-reverse
+    =link_to "View All Recent Projects",projects_path(:filter => :recent), class: "btn btn-primary m-3"
 :css
   .scroll-container {
     background-color: #333;

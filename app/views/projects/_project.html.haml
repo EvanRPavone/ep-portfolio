@@ -1,7 +1,12 @@
+.container.card.mt-5.mb-3.border.border-success.border-3
+  .d-flex.justify-content-between
+    %h2.display-2.ms-3= project.title
+    %span.text-muted= project.user.full_name
+  %hr.m-1/
+  .d-flex.justify-content-between
+    %span.text-muted= pluralize(project.hits, "view")
 .d-flex.flex-column{:id=>"#{dom_id project}"}
   .p-2
     %h6= pluralize(project.hits, "view")
     %hr/
     %p= project.description
-
-    

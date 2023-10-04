@@ -1,22 +1,25 @@
-%div{:class => "comment-#{comment.id} container", :style => "border: 1px solid black; padding: 1em; margin: 1em;"}
-  =comment.user.full_name
-  %br/
-  -if (comment.updated_at - comment.created_at) > 1
-    %span Edited #{time_ago_in_words(comment.updated_at)} ago
-  -else
-    %span Posted #{time_ago_in_words(comment.created_at)} ago
-  -if current_user == comment.user
-    .btn-group.float-end
-      =link_to "Edit", nil, remote: true, class: "btn btn-warning", data: {controller: "comments", 
-                                                                            action: "comments#toggleForm", 
-                                                                            comments_form_param: "edit-form-#{comment.id}", 
-                                                                            comments_body_param: "comment-body-#{comment.id}",
-                                                                            comments_edit_param: "edit-button-#{comment.id}"},
-                                                                            id: "edit-button-#{comment.id}"
-      =button_to "Delete", [project, comment], class: "btn btn-danger", method: :delete
-    %div{:id=>"edit-form-#{comment.id}", :class => "d-none"}
-      =render 'comments/form', project: @project, comment: comment, submit_label: "Update"
-  %hr/
-  %div{:id=>"comment-body-#{comment.id}"}
-    =comment.body
+.container.mb-3{:class => "comment-#{comment.id} container"}
+  .card
+    .m-3
+      .d-flex.justify-content-between
+        %h6.mt-2=comment.user.full_name
+        -if (comment.updated_at - comment.created_at) > 1
+          %span Edited #{time_ago_in_words(comment.updated_at)} ago
+        -else
+          %span Posted #{time_ago_in_words(comment.created_at)} ago
 
+      %hr/
+      %div{:id=>"comment-body-#{comment.id}"}
+        =comment.body
+      %div{:id=>"edit-form-#{comment.id}", :class => "d-none"}
+        =render 'comments/form', project: @project, comment: comment, submit_label: "Update"
+    -if current_user == comment.user
+      .d-flex.justify-content-end
+        .btn-group.m-3
+          =link_to "Edit", nil, remote: true, class: "btn btn-sm btn-warning me-3", data: {controller: "comments", 
+                                                                                action: "comments#toggleForm", 
+                                                                                comments_form_param: "edit-form-#{comment.id}", 
+                                                                                comments_body_param: "comment-body-#{comment.id}",
+                                                                                comments_edit_param: "edit-button-#{comment.id}"},
+                                                                                id: "edit-button-#{comment.id}"
+          =button_to "Delete", [project, comment], class: "btn btn-sm btn-danger", method: :delete

@@ -8,7 +8,7 @@
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
-  %body
+  %body.bg-secondary.bg-gradient
     %header
       =render 'layouts/navbar'
       =render 'layouts/alerts'

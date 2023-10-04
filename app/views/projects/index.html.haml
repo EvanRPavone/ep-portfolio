@@ -11,7 +11,9 @@
           -else
             =image_tag "default.jpg"
           .card-body
-            %h5.card-title= project.title
+            .d-flex.justify-content-between
+              %h5.card-title= project.title
+              %span= pluralize(project.hits, "view")
             %p.card-text= project.description.to_plain_text.truncate(25)
             %p.card-text.d-flex.justify-content-between
               %small.text-muted Posted #{time_ago_in_words(project.created_at)} ago
