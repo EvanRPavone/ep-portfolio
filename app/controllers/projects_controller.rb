@@ -6,6 +6,8 @@ class ProjectsController < ApplicationController
   def index
     @pagy, @projects = if params[:filter] == "recent"
                         @pagy, @projects = pagy(Project.includes([:rich_text_description], :screenshots_attachments).all.order(created_at: :desc))
+                      elsif params[:filter] == "trending"
+                        @pagy, @projects = pagy(Project.includes([:rich_text_description], :screenshots_attachments).most_hit(Date.today.beginning_of_week))
                       else
                         @pagy, @projects = pagy(Project.includes([:rich_text_description], :screenshots_attachments).sort_by_popularity('DESC'))
                       end
