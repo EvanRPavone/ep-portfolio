@@ -1,9 +1,9 @@
 .container.mt-5
   .row
-    .col-4
+    .col-2.mb-2
       =image_tag(@user.avatar,style:"width: 150px; height: 150px; border-radius: 100%;") if @user.avatar.attached?
-    .col-8
-      %h1.display-3 #{@user.first_name} #{@user.last_name}'s Portfolio
+    .col-10
+      %h1.display-3 #{@user.full_name}'s Portfolio
       %div.justify-content-end
         .d-flex.mt-3
           %span Posted #{pluralize(@user.comments.size, "Comment")} | #{pluralize(@user.views, "Portfolio View")} | #{pluralize(@user.projects.size, "Project")} | #{pluralize(@total_views, "Total Project View")} 
