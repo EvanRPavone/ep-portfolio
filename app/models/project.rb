@@ -9,6 +9,8 @@ class Project < ApplicationRecord
   has_noticed_notifications model_name: 'Notification'
   has_many :notifications, through: :user
 
+  has_many_attached :screenshots
+
   friendly_id :title, use: %i[slugged history finders]
 
   def should_generate_new_friendly_id?
@@ -21,5 +23,13 @@ class Project < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     ["comments", "notifications", "rich_text_description", "user"]
+  end
+
+  def screenshot(image)
+    if image.present?
+      image
+    else
+      'default.jpg'
+    end
   end
 end

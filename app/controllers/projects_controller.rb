@@ -4,7 +4,11 @@ class ProjectsController < ApplicationController
 
   # GET /projects or /projects.json
   def index
-    @projects = Project.includes(:user, [:rich_text_description]).all.order(views: :desc)
+    if params[:filter] == "recent"
+      @projects = Project.includes([:rich_text_description], :screenshots_attachments).all.order(created_at: :desc)
+    else
+      @projects = Project.includes([:rich_text_description], :screenshots_attachments).all.order(views: :desc)
+    end
   end
 
   # GET /projects/1 or /projects/1.json
@@ -78,7 +82,7 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:title, :description, :user_id, :github, :website, :youtube)
+      params.require(:project).permit(:title, :description, :user_id, :github, :website, :youtube, :screenshots => [])
     end
 
     def mark_notifications_as_read

@@ -15,4 +15,3 @@ application.register("home", HomeController)
 
 import TestingAreaController from "./testing_area_controller"
 application.register("testing-area", TestingAreaController)
-
