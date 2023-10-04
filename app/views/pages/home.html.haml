@@ -1,24 +1,24 @@
+-if current_user
+  .container.card
+    %h2 User Info
+    %h3=current_user.full_name.titleize
+    %ul
+      %li=current_user.country_name
+      -if current_user.github.present?
+        %li= current_user.github
+      -if current_user.linkedin.present?
+        %li= current_user.linkedin
+      -if current_user.website.present?
+        %li= current_user.website
+      -if current_user.youtube.present?
+        %li= current_user.youtube
+      -if current_user.twitter.present?
+        %li= current_user.twitter
+      -if current_user.instagram.present?
+        %li= current_user.instagram
 .container.card.mt-5{"data-controller" => "home"}
   %h1 Portfoliyours
   %p Welcome!
-  -if current_user
-    .container.card
-      %h2 User Info
-      %h3=current_user.full_name.titleize
-      %ul
-        %li=current_user.country_name
-        -if current_user.github.present?
-          %li= current_user.github
-        -if current_user.linkedin.present?
-          %li= current_user.linkedin
-        -if current_user.website.present?
-          %li= current_user.website
-        -if current_user.youtube.present?
-          %li= current_user.youtube
-        -if current_user.twitter.present?
-          %li= current_user.twitter
-        -if current_user.instagram.present?
-          %li= current_user.instagram
   %h2 ToDo:
   %ul
     %li make PFP bigger, add user.about to portfolio
@@ -33,7 +33,35 @@
     %li Late Night Ideas linked to user. Shown only to current user. Be able to text it to database (Twilio just reverse)?
     %li have a "Portfolio of the week" or something
     %li filter projects by new, popular, most comments, etc..
-
-  %div#dialog
-    %p This be dialog
-  = link_to "About", about_path
+  %hr/
+  %h2 Trending:
+  %hr/
+  
+.container.card.mt-2.mb-5
+  %h2 Recent:
+  .row.row-cols-1.row-cols-md-3.g-4
+    -@projects.each do |project|
+      .col
+        .card
+          -if project.screenshots.attached?
+            =image_tag project.screenshots[0]
+          -else
+            =image_tag "default.jpg"
+          .card-body
+            %h5.card-title= project.title
+            %p.card-text= project.description.to_plain_text.truncate(25)
+            %p.card-text.d-flex.justify-content-between
+              %small.text-muted Posted #{time_ago_in_words(project.created_at)} ago
+              =link_to "View", project_path(project), class: "btn btn-sm btn-secondary"
+  %div.d-flex.flex-row-reverse
+    =link_to "View More",projects_path(:filter => :recent), class: "btn btn-primary"
+:css
+  .scroll-container {
+    background-color: #333;
+    overflow: auto;
+    white-space: nowrap;
+    padding: 10px;
+  }
+  .card-text {
+    word-wrap: break-word;
+  }
