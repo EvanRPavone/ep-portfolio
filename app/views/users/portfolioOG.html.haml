@@ -1,0 +1,43 @@
+.container.card.mt-2
+  .container.mt-5
+    .row
+      .col-2.mb-2
+        =image_tag(@user.avatar,style:"width: 150px; height: 150px; border-radius: 100%;") if @user.avatar.attached?
+      .col-10
+        %h1.display-3 #{@user.full_name}'s Portfolio
+        %div.justify-content-end
+          .p-4.text-black{style: "background-color: #f8f9fa;"}
+            .d-flex.justify-content-end.text-center.py-1
+              %div
+                %p.mb-1.h5=@user.projects.size
+                %p.small.text-muted.mb-0 Project#{@user.projects.size > 1 ? "s" : ""}
+              .px-3
+                %p.mb-1.h5=@user.projects.size
+                %p.small.text-muted.mb-0 Project#{@user.projects.size > 1 ? "s" : ""}
+              %div
+                %p.mb-1.h5=@total_views
+                %p.small.text-muted.mb-0 Total Project Views
+  .m-4#projects
+    .row
+      -@projects.each do |project|
+        .col-6.mb-4
+          .card
+            .card-body
+              .d-flex.justify-content-between.mb-3
+                %h5.card-title
+                  = project.title
+                  %span.fs-6.lead.text-muted
+                    = pluralize(project.hits, "view")
+                =link_to "Show", project, class: "btn btn-sm btn-light"
+              %p.border-top.card-text= project.description.to_plain_text.truncate(50)
+              .btn-toolbar.justify-content-end.border-top{:role=> "toolbar"}
+                .d-flex.mt-3
+                  =link_to "GitHub", project, class: "btn btn-sm btn-dark"
+                  =link_to "Website", project, class: "btn btn-sm btn-primary ms-2 me-2"
+                  =link_to "Youtube", project, class: "btn btn-sm btn-danger"
+              %hr/
+              .d-flex.justify-content-between
+                %span #{pluralize(project.comments.size, "Comment")}
+                %span Posted #{time_ago_in_words(project.created_at)} ago
+    =pagy_bootstrap_nav(@pagy).html_safe if @pagy.pages > 1
+  %hr/

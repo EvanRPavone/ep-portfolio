@@ -1,0 +1,44 @@
+%section.h-100.gradient-custom-2
+  .container.py-5.h-100
+    .row.d-flex.justify-content-center.align-items-center.h-100
+      .col.col-lg-12.col-xl-7
+        .card
+          .ms-4.mt-5.d-flex.flex-column{style: "width: 150px;"}
+            =image_tag(@user.avatar,style:"width: 150px; z-index: 1", class: "img-fluid img-thumbnail mt-4 mb-2") if @user.avatar.attached?
+            %button.btn.btn-outline-dark{"data-mdb-ripple-color" => "dark", style: "z-index: 1;", type: "button"}
+              Edit profile
+          .ms-3{style: "margin-top: 130px;"}
+            %h5 #{@user.full_name}'s
+            %p #{@user.country_name}
+          .p-4.text-black{style: "background-color: #f8f9fa;"}
+            .d-flex.justify-content-end.text-center.py-1
+              %div
+                %p.mb-1.h5=@user.projects.size
+                %p.small.text-muted.mb-0 Project#{@user.projects.size > 1 ? "s" : ""}
+              .px-3
+                %p.mb-1.h5=@user.projects.size
+                %p.small.text-muted.mb-0 Project#{@user.projects.size > 1 ? "s" : ""}
+              %div
+                %p.mb-1.h5=@total_views
+                %p.small.text-muted.mb-0 Total Project Views
+          .card-body.p-4.text-black
+            .mb-5
+              %p.lead.fw-normal.mb-1 About
+              .p-4{style: "background-color: #f8f9fa;"}
+                %p.font-italic.mb-1 Web Developer
+                %p.font-italic.mb-1 Lives in New York
+                %p.font-italic.mb-0 Photographer
+            .d-flex.justify-content-between.align-items-center.mb-4
+              %p.lead.fw-normal.mb-0 Recent photos
+              %p.mb-0
+                %a.text-muted{href: "#!"} Show all
+            .row.g-2
+              .col.mb-2
+                %img.w-100.rounded-3{alt: "image 1", src: "https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"}/
+              .col.mb-2
+                %img.w-100.rounded-3{alt: "image 1", src: "https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"}/
+            .row.g-2
+              .col
+                %img.w-100.rounded-3{alt: "image 1", src: "https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"}/
+              .col
+                %img.w-100.rounded-3{alt: "image 1", src: "https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"}/

@@ -16,25 +16,19 @@ admin = User.first_or_create!(email: "admin@localhost.com",
                               github: "https://github.com/EvanRPavone",
                               linkedin: "https://www.linkedin.com/in/evan-pavone/",
                               youtube: "https://www.youtube.com/channel/UC_MeVjfn0SM5d44Ei3HQYgw",
+                              website: "#",
+                              twitter: "#",
+                              instagram: "#",
+                              discord: "#",
+                              about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                              aoe: "Full Stack Software Engineer",
                               country: "US",
                               role: User.roles[:admin])
-                    
-provolone = User.first_or_create!(email: "user@localhost.com",
-                              password: "password",
-                              password_confirmation: "password",
-                              first_name: "Mike",
-                              last_name: "Provolone",
-                              phone_number: "2222222222")
-
+puts "Starting project creation"
 elapsed = Benchmark.measure do
   projects = []
   50.times do |x|
-    puts "Creating project #{x}"
-    project= Project.new(title: "Project #{x}", description: "Hello this is Project #{x}", user: admin)
-    2.times do |y|
-      puts "Creating comment #{y} for project #{x}"
-      comment = project.comments.build(body: "Hello #{admin.first_name}", user: provolone)
-    end
+    project= Project.new(title: "Project #{x}", description: "#{x} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tincidunt eget nullam non nisi est sit amet facilisis magna. Nec nam aliquam sem et tortor.", user: admin)
     projects.push(project)
   end
   Project.import(projects, recursive: true)

@@ -55,7 +55,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
                                                               :phone_number,
                                                               :password_confirmation,
                                                               :current_password,
-                                                              :country,
+                                                              :country, 
+                                                              :github, 
+                                                              :linkedin, 
+                                                              :website, 
+                                                              :youtube, 
+                                                              :twitter, 
+                                                              :instagram, 
+                                                              :discord,
+                                                              :aoe,
                                                               :about])
   end
 

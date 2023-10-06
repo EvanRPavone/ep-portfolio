@@ -46,7 +46,7 @@ class AfterSignupController < ApplicationController
     permitted_attributes =  case step
                             when 'set_name'
                               required_parameters = :user
-                              %i[phone_number country avatar about]
+                              %i[phone_number country avatar about aoe]
                             when 'set_social'
                               required_parameters = :user
                               %i[github linkedin website youtube twitter instagram discord]

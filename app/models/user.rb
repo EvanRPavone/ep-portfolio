@@ -78,6 +78,26 @@ class User < ApplicationRecord
     ISO3166::Country.find_country_by_alpha2(country).common_name
   end
 
+  def socials
+    socials = []
+    if linkedin.present?
+      socials.push("LinkedIn: #{linkedin}")
+    elsif github.present?
+      socials.push("Github: #{github}")
+    elsif website.present?
+      socials.push("Website: #{website}")
+    elsif youtube.present?
+      socials.push("Youtube: #{youtube}")
+    elsif twitter.present?
+      socials.push("X (Twitter) #{twitter}")
+    elsif instagram.present?
+      socials.push("Instagram #{twitter}")
+    elsif discord.present?
+      socials.push("Discord #{twitter}")
+    end
+    return socials
+  end
+
   private
 
   def set_default_role
