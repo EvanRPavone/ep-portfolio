@@ -1,30 +1,35 @@
-.container
-  %h1 Your basic information
-  =form_for(@user, url: wizard_path, method: :put) do |f|
-    -if f.object.errors.any?
-      .error_messages
-        -f.object.errors.full_messages.each do |error|
-          %p{:style => "color: red"}= error
-    .form-control
-      %legend Basic Information
-      .row.mb-3
-        .col-6
-          = f.label :phone_number, "Phone Number",class: "form-label"
-          = f.telephone_field :phone_number, class: 'form-control', autofocus: true, placeholder: 'xxx-xxx-xxxx', value: number_to_phone(@user.phone_number, area_code: true)
-        .col-6
-          =f.label :country, "Country",class: "form-label"
-          =f.country_select :country, { priority_countries: ["US", "CA", "GB"], include_blank: 'Select a country' }, required: true, class: 'form-select'
-      .row.mb-3
-        .col-6
-          = f.label :avatar, "Profile Picture",class: "form-label"
-          =f.file_field :avatar
-        .col-6
-          =f.label :about, "About You",class: "form-label"
-          =f.text_area :about, class: 'form-control'
-    .d-flex.flex-row-reverse
-      =render 'links'
-      =f.submit 'Next Step', class: "btn btn-primary"
-    =render 'after_signup/links'
+.container.card.mt-2.col-8.mb-3.border.border-success.border-3
+  %h2.display-6.ms-3 Basic Information
+  %hr.m-1/
+  .me-3.ms-3
+    =form_for(@user, url: wizard_path, method: :put) do |f|
+      -if f.object.errors.any?
+        .error_messages
+          -f.object.errors.full_messages.each do |error|
+            %p{:style => "color: red"}= error
+      .form-control.mt-3.mb-3
+        %legend Step 2/4
+        .row.mb-3
+          .col-6
+            = f.label :phone_number, "Phone Number",class: "form-label"
+            = f.telephone_field :phone_number, class: 'form-control', autofocus: true, placeholder: 'xxx-xxx-xxxx', value: number_to_phone(@user.phone_number, area_code: true)
+          .col-6
+            =f.label :country, "Country",class: "form-label"
+            =f.country_select :country, { priority_countries: ["US", "CA", "GB"], include_blank: 'Select a country' }, required: true, class: 'form-select'
+        .row.mb-3
+          .col-6
+            = f.label :aoe, "Area of Expertise",class: "form-label"
+            =f.text_field :aoe, class: 'form-control'
+          .col-6
+            = f.label :avatar, "Profile Picture",class: "form-label"
+            =f.file_field :avatar,{class: "form-control",type: "file"}
+        .row.mb-3
+          .col-12
+            =f.label :about, "About You",class: "form-label"
+            =f.text_area :about, class: 'form-control'
+        .d-flex.flex-row-reverse.mb-3
+          =f.submit 'Next Step', class: "btn btn-primary"
+          =render 'links'
 
 :css
   div.field_with_errors {
