@@ -13,49 +13,55 @@
             %button.btn.btn-outline-primary.ms-1{type: "button"} Message
       .card.mb-4.mb-lg-0
         .card-body.p-0
-          %ul.list-group.list-group-flush.rounded-3
-            %li.list-group-item.d-flex.justify-content-between.align-items-center.p-3
-              %p.mb-0 Posted #{pluralize(@user.comments.size, "Comment")}
-            %li.list-group-item.d-flex.justify-content-between.align-items-center.p-3
-              %p.mb-0 #{pluralize(@user.hits, "Portfolio View")}
-            %li.list-group-item.d-flex.justify-content-between.align-items-center.p-3
-              %p.mb-0 #{pluralize(@user.projects.size, "Project")}
-            %li.list-group-item.d-flex.justify-content-between.align-items-center.p-3
-              %p.mb-0 #{pluralize(@total_views, "Total Project View")}
+          %ul#sidebarTabs.nav.nav-tabs{role: "tablist"}
+            %li.nav-item{role: "presentation"}
+              %button#socials-tab.nav-link.active{"aria-controls" => "socials", "aria-selected" => "true", "data-bs-target" => "#socials", "data-bs-toggle" => "tab", role: "tab", type: "button"} Socials
+            %li.nav-item{role: "presentation"}
+              %button#stats-tab.nav-link{"aria-controls" => "stats", "aria-selected" => "false", "data-bs-target" => "#stats", "data-bs-toggle" => "tab", role: "tab", type: "button"} Stats
+          #sidebarTabsContent.tab-content
+            #socials.tab-pane.fade.show.active{"aria-labelledby" => "socials-tab", role: "tabpanel"}
+              -if @user.socials.any?
+                %div.justify-content-end
+                  -if @user.linkedin.present? || @user.github.present? || @user.website.present? || @user.youtube.present?
+                    .row.me-3.ms-3.mt-2
+                      .d-flex.justify-content-center.text-center.py-1
+                        -if @user.linkedin.present? 
+                          %div
+                            =link_to "LinkedIn", @user.linkedin, class: "btn btn-sm btn-primary me-1"
+                        -if @user.github.present?
+                          %div
+                            =link_to "GitHub", @user.github, class: "btn btn-sm btn-dark me-1"
+                        -if @user.website.present?
+                          %div
+                            =link_to "Website", @user.website, class: "btn btn-sm btn-info me-1"
+                        -if @user.youtube.present?
+                          %div
+                            =link_to "Youtube", @user.youtube, class: "btn btn-sm btn-danger"
+                  -if @user.twitter.present? || @user.instagram.present? || @user.discord.present?
+                    .row.me-3.ms-3.mt-2
+                      .d-flex.justify-content-center.text-center.py-1
+                        -if @user.twitter.present?
+                          %div
+                            =link_to "X (Twitter)", @user.twitter, class: "btn btn-sm btn-light me-1"
+                        -if @user.instagram.present?  
+                          %div
+                            =link_to "Instagram", @user.instagram, class: "btn btn-sm btn-light me-1"
+                        -if @user.discord.present?
+                          %div
+                            =link_to "Discord", @user.discord, class: "btn btn-sm btn-light"
+            #stats.tab-pane.fade{"aria-labelledby" => "stats-tab", role: "tabpanel"}
+              %ul.list-group.list-group-flush.rounded-3
+                %li.list-group-item.d-flex.justify-content-between.align-items-center.p-3
+                  %p.mb-0 Posted #{pluralize(@user.comments.size, "Comment")}
+                %li.list-group-item.d-flex.justify-content-between.align-items-center.p-3
+                  %p.mb-0 #{pluralize(@user.hits, "Portfolio View")}
+                %li.list-group-item.d-flex.justify-content-between.align-items-center.p-3
+                  %p.mb-0 #{pluralize(@user.projects.size, "Project")}
+                %li.list-group-item.d-flex.justify-content-between.align-items-center.p-3
+                  %p.mb-0 #{pluralize(@total_views, "Total Project View")}
     .col-lg-8
       .card.mb-4
         .card-body
-          -if @user.socials.any?
-            .row
-              %div.justify-content-end
-                -if @user.linkedin.present? || @user.github.present? || @user.website.present? || @user.youtube.present?
-                  .row.me-3.ms-3
-                    .d-flex.justify-content-end.text-center.py-1
-                      -if @user.linkedin.present? 
-                        %div
-                          =link_to "LinkedIn", @user.linkedin, class: "btn btn-sm btn-primary ms-2 me-2"
-                      -if @user.github.present?
-                        %div
-                          =link_to "GitHub", @user.github, class: "btn btn-sm btn-dark ms-2 me-2"
-                      -if @user.website.present?
-                        %div
-                          =link_to "Website", @user.website, class: "btn btn-sm btn-info ms-2 me-2"
-                      -if @user.youtube.present?
-                        %div
-                          =link_to "Youtube", @user.youtube, class: "btn btn-sm btn-danger ms-2"
-                -if @user.twitter.present? || @user.instagram.present? || @user.discord.present?
-                  .row.me-3.ms-3
-                    .d-flex.justify-content-end.text-center.py-1
-                      -if @user.twitter.present?
-                        %div
-                          =link_to "X (Twitter)", @user.twitter, class: "btn btn-sm btn-light ms-2 me-2"
-                      -if @user.instagram.present?  
-                        %div
-                          =link_to "Instagram", @user.instagram, class: "btn btn-sm btn-light ms-2 me-2"
-                      -if @user.discord.present?
-                        %div
-                          =link_to "Discord", @user.discord, class: "btn btn-sm btn-light ms-2"
-          %hr/
           -if @user.about
             .row
               %h5.card-title.text-center About Me
@@ -89,8 +95,8 @@
                             =link_to "Youtube", project, class: "btn btn-sm btn-danger"
                         %hr/
                         .d-flex.justify-content-between
-                          %span #{pluralize(project.comments.size, "Comment")}
-                          %span Posted #{time_ago_in_words(project.created_at)} ago
+                          %small.text-muted #{pluralize(project.comments.size, "Comment")}
+                          %small.text-muted #{time_ago_in_words(project.created_at)} ago
               = render partial: 'layouts/pagination', locals: {pagy: @pagy}
               -# =pagy_bootstrap_nav(@pagy).html_safe if @pagy.pages > 1
   %hr/
