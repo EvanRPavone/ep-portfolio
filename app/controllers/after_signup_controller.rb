@@ -10,8 +10,8 @@ class AfterSignupController < ApplicationController
     case step
     when 'sign_up'
       skip_step if @user.persisted?
-    when 'find_users'
-      @users = User.all
+    # when 'find_users'
+    #   @users = User.all
     end
 
     render_wizard

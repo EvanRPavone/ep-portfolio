@@ -30,7 +30,7 @@ class User < ApplicationRecord
 
   # Class level accessor http://apidock.com/rails/Class/cattr_accessor
   cattr_accessor :form_steps do
-    %w[sign_up set_name set_social find_users]
+    %w[sign_up set_name set_social]
   end
 
   # Instance level accessor http://apidock.com/ruby/Module/attr_accessor
