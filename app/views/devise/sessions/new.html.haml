@@ -1,18 +1,30 @@
-.container
-  %h2 Log in
-  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-    .field
-      = f.label :email
-      %br/
-      = f.email_field :email, autofocus: true, autocomplete: "email"
-    .field
-      = f.label :password
-      %br/
-      = f.password_field :password, autocomplete: "current-password"
-    - if devise_mapping.rememberable?
-      .field
-        = f.check_box :remember_me
-        = f.label :remember_me
-    .actions
-      = f.submit "Log in"
-  = render "devise/shared/links"
+.container.card.mt-2.col-8.mb-3.border.border-success.border-3
+  %h2.display-2.ms-3 Log In
+  %hr.m-1/
+  .me-3.ms-3
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .row.mb-3
+        .col-4
+          = f.label :email, "Email",class: "form-label"
+          = f.email_field :email, class: "form-control", placeholder: "Email...", autofocus: true, autocomplete: "email", required: true
+      .row.mb-3
+        .col-6
+          = f.label :password, "Password",class: "form-label"
+          = f.password_field :password, autocomplete: "current-password", class: "form-control"
+      .row
+        .btn-toolbar.justify-content-end.border-top.border-bottom{:role=> "toolbar"}
+          - if devise_mapping.rememberable?
+            .d-flex.mt-3.mb-3.me-2.border-end
+              = f.label :remember_me, class: "form-check-label me-2"
+              = f.check_box :remember_me, class: "form-check-input me-2"
+          .d-flex.mt-3.mb-3
+            = f.submit "Login", class: "btn btn-sm btn-primary"
+      .row
+        .btn-toolbar.justify-content-evenly.border-top.border-bottom{:role=> "toolbar"}
+          - if devise_mapping.registerable? && controller_name != 'registrations'
+            .d-flex.mt-3.me-2.border.p-3.mb-3
+              %small.me-3 Don't have an account?
+              = link_to "Sign up", new_registration_path(resource_name), class: "btn btn-sm btn-primary"
+          - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+            .d-flex.mt-3.me-2.border.p-3.mb-3
+              = link_to "Forgot your password?", new_password_path(resource_name), class: "btn btn-sm btn-warning"

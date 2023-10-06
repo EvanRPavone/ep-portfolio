@@ -1,29 +1,36 @@
-.container
-  %h2 Sign up
-  = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-    = render "devise/shared/error_messages", resource: resource
-    .field
-      = f.label :email
-      %br/
-      = f.email_field :email, autofocus: true, autocomplete: "email"
-    .row.mb-3
-      .col-6
-        =f.label :first_name, "First Name",class: "form-label"
-        =f.text_field :first_name, class: "form-control", placeholder: "First name....", required: true
-      .col-6
-        =f.label :last_name, "Last Name",class: "form-label"
-        =f.text_field :last_name, class: "ms-2 form-control", placeholder: "Last name....", required: true
-    .field
-      = f.label :password
-      - if @minimum_password_length
-        %em
-          (#{@minimum_password_length} characters minimum)
-      %br/
-      = f.password_field :password, autocomplete: "new-password"
-    .field
-      = f.label :password_confirmation
-      %br/
-      = f.password_field :password_confirmation, autocomplete: "new-password"
-    .actions
-      = f.submit "Sign up"
-  = render "devise/shared/links"
+.container.card.mt-2.col-8.mb-3.border.border-success.border-3
+  %h2.display-2.ms-3 Sign Up
+  %hr.m-1/
+  .me-3.ms-3
+    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      .row.mb-3
+        .col-4
+          = f.label :email, "Email",class: "form-label"
+          = f.email_field :email, class: "form-control", placeholder: "Email...", autofocus: true, autocomplete: "email", required: true
+      .row.mb-3
+        .col-6
+          =f.label :first_name, "First Name",class: "form-label"
+          =f.text_field :first_name, class: "form-control", placeholder: "First name...", required: true
+        .col-6
+          =f.label :last_name, "Last Name",class: "form-label"
+          =f.text_field :last_name, class: "form-control", placeholder: "Last name...", required: true
+      .row.mb-3
+        .col-6
+          = f.label :password, "Password",class: "form-label"
+          - if @minimum_password_length
+            %em
+              (#{@minimum_password_length} characters minimum)
+          = f.password_field :password, autocomplete: "new-password", class: "form-control"
+        .col-6
+          = f.label :password_confirmation, "Confirm Password",class: "form-label"
+          = f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control"
+      .row
+        .btn-toolbar.justify-content-end.border-top.border-bottom{:role=> "toolbar"}
+          .d-flex.mt-3.mb-3
+            = f.submit "Sign up", class: "btn btn-sm btn-primary"
+      .row
+        .d-flex.justify-content-end.mt-3
+          %p Already have an account?
+      .row
+        .btn-toolbar.justify-content-end{:role=> "toolbar"}
+          = render "devise/shared/links"
