@@ -1,5 +1,9 @@
-%h1 New project
-
-= render 'form'
-
-= link_to 'Back', projects_path
+.container.card.mt-2.col-8.mb-3.border.border-success.border-3
+  %h2.display-2.ms-3 Post New Project
+  %hr.m-1/
+  .me-3.ms-3
+    = render 'form'
+  .row
+    .btn-toolbar.justify-content-start.border-top.border-bottom{:role=> "toolbar"}
+      .d-flex.mt-3.mb-3
+        = link_to 'Back', projects_path, class: "btn btn-sm btn-secondary"

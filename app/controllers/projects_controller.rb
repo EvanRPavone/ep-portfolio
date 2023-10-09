@@ -74,7 +74,7 @@ class ProjectsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
-      @project = Project.find(params[:id])
+      @project = Project.includes(screenshots_attachments: :blob).find(params[:id])
 
       # If old id or numeric id was used to find the record, then
       # the request slug will not match the current slug, and we should do

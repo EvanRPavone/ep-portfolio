@@ -14,7 +14,20 @@
   .card.mb-3
     .card
       -if @project.screenshots.attached?
-        =image_tag @project.screenshots[0], class:"figure-img rounded img-fluid rounded mx-auto d-block"
+        #carouselExampleIndicators.carousel.carousel-dark.slide{"data-bs-ride" => "carousel"}
+          .carousel-indicators
+            - @project.screenshots.each_with_index do |image, index|
+              %button{"data-bs-slide-to" => "#{index}", "data-bs-target" => "#carouselExampleIndicators", type: "button", class: "#{index == 0 ? 'active' : ''}"}
+          .carousel-inner
+            - @project.screenshots.each_with_index do |image, index|
+              .carousel-item{class: "item #{index == 0 ? 'active' : ''} text-center"}
+                =image_tag image
+          %button.carousel-control-prev{"data-bs-slide" => "prev", "data-bs-target" => "#carouselExampleIndicators", type: "button"}
+            %span.carousel-control-prev-icon.btn-warning{"aria-hidden" => "true"}
+            %span.visually-hidden Previous
+          %button.carousel-control-next{"data-bs-slide" => "next", "data-bs-target" => "#carouselExampleIndicators", type: "button"}
+            %span.carousel-control-next-icon{"aria-hidden" => "true"}
+            %span.visually-hidden Next
       -else
         =image_tag "default.jpg", class:"figure-img rounded img-fluid rounded mx-auto d-block"
     .card-body
@@ -32,3 +45,10 @@
       =render 'comments/form', project: @project, comment: @project.comments.build, submit_label: "Reply"
       -@comments.each do |comment|
         =render 'comments/comment', project: @project, comment: comment
+
+:css
+  img {
+    display: inline-block;
+    width:  500px;
+    object-fit: cover;
+  }

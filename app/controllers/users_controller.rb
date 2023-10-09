@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user
   def portfolio
-    @pagy, @projects = pagy(@user.projects.includes([:rich_text_description], [:screenshots_attachments]).sort_by_popularity('DESC'), items: 4, size: [1,1,1,1] )
+    @pagy, @projects = pagy(@user.projects.includes([:rich_text_description], [:screenshots_attachments], screenshots_attachments: :blob).order(created_at: :desc), items: 4, size: [1,1,1,1] )
     @user.punch(request)
     @total_views = 0
     @user.projects.each do |project|
@@ -12,6 +12,6 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.includes(avatar_attachment: :blob).find(params[:id])
   end
 end

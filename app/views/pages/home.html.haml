@@ -1,22 +1,22 @@
-.container.card.mt-5.mb-3.border.border-success.border-3{"data-controller" => "home"}
-  %h1 Portfoliyours
-  %p Welcome!
-  %h2 ToDo:
-  %ul
-    %li VERSION 1
-    %li Screenshot gallery for each project. Allow multiple file uploads
-    %li add aoe to forms
-    %li Style (forms, search page)
-    %li Host it
-    -# This will be an update. getting list above done first then hosting
-    %hr/
-    VERSION 2
-    %li Add ability to follow user (fans)
-    %li Add peronalization per user. They can set what colors they want (eventually they will be able to choose the style too)
-    %li fans can opt in/out of email notifications
-    %li Late Night Ideas linked to user. Shown only to current user. Be able to text it to database (Twilio just reverse)?
-    %li have a "Portfolio of the week" or something
-    %li filter projects by new, popular, most comments, etc..
+-if Rails.env == "development"
+  .container.card.mt-5.mb-3.border.border-success.border-3{"data-controller" => "home"}
+    %h1 Portfoliyours
+    %p Welcome!
+    %h2 ToDo:
+    %ul
+      %li VERSION 1
+      %li Style (forms, search page)
+      %li look into Copyright thingy
+      %li Host it
+      -# This will be an update. getting list above done first then hosting
+      %hr/
+      VERSION 2
+      %li Add ability to follow user (fans)
+      %li Add peronalization per user. They can set what colors they want (eventually they will be able to choose the style too)
+      %li fans can opt in/out of email notifications
+      %li Late Night Ideas linked to user. Shown only to current user. Be able to text it to database (Twilio just reverse)?
+      %li have a "Portfolio of the week" or something
+      %li filter projects by new, popular, most comments, etc..
 .container.card.mt-2.col-8.mb-3.border.border-success.border-3
   %h2.display-2.ms-3 Projects of the Week
   %hr.m-1/
@@ -69,4 +69,10 @@
   }
   .card-text {
     word-wrap: break-word;
+  }
+
+  img {
+    display: inline-block;
+    height:  100px;
+    object-fit: cover;
   }
