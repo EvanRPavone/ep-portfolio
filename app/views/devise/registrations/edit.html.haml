@@ -78,10 +78,5 @@
       .row
         .btn-toolbar.justify-content-end.border-top.border-bottom{:role=> "toolbar"}
           .d-flex.mt-3.mb-3
-            %p.me-2 Already have an account?
-            = render "devise/shared/links"
-      .row
-        .btn-toolbar.justify-content-end.border-top.border-bottom{:role=> "toolbar"}
-          .d-flex.mt-3.mb-3
             %p.me-2 Unhappy?
             = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "btn btn-sm btn-danger"
