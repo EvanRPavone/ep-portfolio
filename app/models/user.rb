@@ -23,7 +23,9 @@ class User < ApplicationRecord
   enum role: [:user, :vip, :admin]
   after_initialize :set_default_role, if: :new_record?
   #has_many :fans
-  has_one_attached :avatar
+
+  mount_uploader :avatar, ImageUploader
+  
   friendly_id :portfolioslug, use: %i[slugged finders]
 
   acts_as_punchable

@@ -24,8 +24,8 @@
     -@trending_projects.each do |project|
       .col
         .card
-          -if project.screenshots.attached?
-            =image_tag project.screenshots[0]
+          -if project.screenshots.any?
+            =image_tag project.screenshots[0].url
           -else
             =image_tag "default.jpg"
           .card-body
@@ -46,8 +46,8 @@
     -@recent_projects.each do |project|
       .col
         .card
-          -if project.screenshots.attached?
-            =image_tag project.screenshots[0]
+          -if project.screenshots.any?
+            =image_tag project.screenshots[0].url
           -else
             =image_tag "default.jpg"
           .card-body

@@ -9,7 +9,7 @@ class Project < ApplicationRecord
   has_noticed_notifications model_name: 'Notification'
   has_many :notifications, through: :user
 
-  has_many_attached :screenshots
+  mount_uploaders :screenshots, ImageUploader
 
   friendly_id :title, use: %i[slugged history finders]
 

@@ -106,3 +106,5 @@ gem "countries", "~> 5.6"
 gem 'pagy'
 
 gem "punching_bag"
+
+gem 'carrierwave', '~> 3.0'

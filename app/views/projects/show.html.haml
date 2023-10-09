@@ -13,7 +13,7 @@
     %span.text-muted= pluralize(@project.hits, "view")
   .card.mb-3
     .card
-      -if @project.screenshots.attached?
+      -if @project.screenshots.any?
         #carouselExampleIndicators.carousel.carousel-dark.slide{"data-bs-ride" => "carousel"}
           .carousel-indicators
             - @project.screenshots.each_with_index do |image, index|
@@ -21,7 +21,7 @@
           .carousel-inner
             - @project.screenshots.each_with_index do |image, index|
               .carousel-item{class: "item #{index == 0 ? 'active' : ''} text-center"}
-                =image_tag image
+                =image_tag image.url
           %button.carousel-control-prev{"data-bs-slide" => "prev", "data-bs-target" => "#carouselExampleIndicators", type: "button"}
             %span.carousel-control-prev-icon.btn-warning{"aria-hidden" => "true"}
             %span.visually-hidden Previous

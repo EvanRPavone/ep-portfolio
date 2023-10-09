@@ -64,6 +64,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
                                                               :instagram, 
                                                               :discord,
                                                               :aoe,
+                                                              :avatar,
                                                               :about])
   end
 

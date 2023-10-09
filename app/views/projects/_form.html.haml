@@ -15,8 +15,10 @@
       =f.rich_text_area :description,{class: "form-control"}
   .row.mb-3
     .col-12
+      - @project.screenshots.each do |ss|
+        = hidden_field :project, :screenshots, multiple: true, value: ss.identifier
       = f.label :screenshots, "Screenshots",class: "form-label"
-      =f.file_field :screenshots,{class: "form-control",type: "file", multiple: true}
+      =f.file_field :screenshots, {class: "form-control", multiple: true}
   .row.mb-3
     .col-4
       = f.label :github, "GitHub",class: "form-label"

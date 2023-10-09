@@ -3,7 +3,7 @@
     .col-lg-4
       .card.mb-4
         .card-body.text-center
-          =image_tag(@user.avatar,class: "rounded-circle img-fluid",style:"width: 150px;") if @user.avatar.attached?
+          =image_tag(@user.avatar.url,class: "rounded-circle img-fluid",style:"width: 150px;") if @user.avatar.present?
           %h5.my-3= @user.full_name
           -# Area of Expertise
           %p.text-muted.mb-1=@user.aoe 
@@ -76,8 +76,8 @@
                 -@projects.each do |project|
                   .col
                     .card
-                      -if project.screenshots.attached?
-                        =image_tag project.screenshots[0]
+                      -if project.screenshots.any?
+                        =image_tag project.screenshots[0].url
                       -else
                         =image_tag "default.jpg"
                       .card-body

@@ -21,7 +21,7 @@
           = f.telephone_field :phone_number, class: 'form-control', autofocus: true, placeholder: 'xxx-xxx-xxxx', value: number_to_phone(@user.phone_number, area_code: true)
         .col-6
           = f.label :avatar, "Profile Picture",class: "form-label"
-          =f.file_field :avatar,{class: "form-control",type: "file"}
+          =f.file_field :avatar,{class: "form-control"}
       .row.mb-3
         .col-6
           =f.label :country, class: "form-label"

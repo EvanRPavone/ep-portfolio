@@ -5,11 +5,11 @@ class ProjectsController < ApplicationController
   # GET /projects or /projects.json
   def index
     @pagy, @projects = if params[:filter] == "recent"
-                        @pagy, @projects = pagy(Project.includes([:rich_text_description], :screenshots_attachments).all.order(created_at: :desc))
+                        @pagy, @projects = pagy(Project.includes([:rich_text_description]).all.order(created_at: :desc))
                       elsif params[:filter] == "trending"
-                        @pagy, @projects = pagy(Project.includes([:rich_text_description], :screenshots_attachments).most_hit(Date.today.beginning_of_week))
+                        @pagy, @projects = pagy(Project.includes([:rich_text_description]).most_hit(Date.today.beginning_of_week))
                       else
-                        @pagy, @projects = pagy(Project.includes([:rich_text_description], :screenshots_attachments).sort_by_popularity('DESC'))
+                        @pagy, @projects = pagy(Project.includes([:rich_text_description]).sort_by_popularity('DESC'))
                       end
   end
 
@@ -30,6 +30,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    @screenshots = @project.screenshots
   end
 
   # POST /projects or /projects.json
@@ -52,7 +53,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to project_url(@project), notice: "Project was successfully updated." }
+        format.html { redirect_to project_path(@project), notice: "Project was successfully updated." }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -74,7 +75,7 @@ class ProjectsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
-      @project = Project.includes(screenshots_attachments: :blob).find(params[:id])
+      @project = Project.find(params[:id])
 
       # If old id or numeric id was used to find the record, then
       # the request slug will not match the current slug, and we should do
@@ -84,7 +85,7 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:title, :description, :user_id, :github, :website, :youtube, :screenshots => [])
+      params.require(:project).permit(:title, :description, :user_id, :github, :website, :youtube, {screenshots: []})
     end
 
     def mark_notifications_as_read
