@@ -1,68 +1,87 @@
-.container
-  %h2
-    Edit #{resource_name.to_s.humanize}
-  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-    = render "devise/shared/error_messages", resource: resource
-    .field
-      = f.label :email
-      %br/
-      = f.email_field :email, autofocus: true, autocomplete: "email"
-    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-      %div
-        Currently waiting confirmation for: #{resource.unconfirmed_email}
-    .field
-      = f.label :phone_number
-      %br/
-      = f.text_field :phone_number, class: 'form-control', autofocus: true, placeholder: 'xxx-xxx-xxxx', value: number_to_phone(@user.phone_number, area_code: true)
-    .field
-      =f.label :avatar
-      %br/
-      =f.file_field :avatar
-    .field
-      =f.label :first_name, "First Name"
-      %br/
-      = f.text_field :first_name
-    .field
-      =f.label :last_name, "Last Name"
-      %br/
-      = f.text_field :last_name
-    .field
-      =f.label :country
-      %br/
-      =f.country_select :country, { priority_countries: ["US", "CA", "GB"], include_blank: 'Select a country' }, required: true, class: 'form-select'
-    .form-control
-      %legend Your Socials
-      .input-group.mt-2
-        =f.text_field :github, class: "form-control", placeholder: "GitHub...."
-        =f.text_field :linkedin, class: "form-control", placeholder: "LinkedIn...."
-        =f.text_field :website, class: "form-control", placeholder: "Website...."
-      .input-group.mt-2
-        =f.text_field :youtube, class: "form-control", placeholder: "Youtube...."
-        =f.text_field :twitter, class: "form-control", placeholder: "Twitter (X)...."
-        =f.text_field :instagram, class: "form-control", placeholder: "Website...."
-        =f.text_field :discord, class: "form-control", placeholder: "Discord Username...."
-    .field
-      = f.label :password
-      %i (leave blank if you don't want to change it)
-      %br/
-      = f.password_field :password, autocomplete: "new-password"
-      - if @minimum_password_length
-        %br/
-        %em
-          = @minimum_password_length
-          characters minimum
-    .field
-      = f.label :password_confirmation
-      %br/
-      = f.password_field :password_confirmation, autocomplete: "new-password"
-    .field
-      = f.label :current_password
-      %i (we need your current password to confirm your changes)
-      %br/
-      = f.password_field :current_password, autocomplete: "current-password"
-    .actions
-      = f.submit "Update"
-  %h3 Cancel my account
-  %div
-    Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete}
-  = link_to "Back", :back
+.container.card.mt-2.col-8.mb-3.border.border-success.border-3
+  %h2.display-2.ms-3 Edit #{resource_name.to_s.humanize}
+  %hr.m-1/
+  .me-3.ms-3
+    = link_to "Cancel", :back, class: "btn btn-sm btn-secondary m-3"
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      = render "devise/shared/error_messages", resource: resource
+      .row.mb-3
+        .col-6
+          = f.label :email, "Email",class: "form-label"
+          = f.email_field :email, class: "form-control", autofocus: true, autocomplete: "email", required: true
+          - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+            %div
+              Currently waiting confirmation for: #{resource.unconfirmed_email}
+        .col-6
+          = f.label :aoe, "Area of Expertise",class: "form-label"
+          =f.text_field :aoe, class: 'form-control'
+      .row.mb-3
+        .col-6
+          = f.label :phone_number, "Phone Number",class: "form-label"
+          = f.telephone_field :phone_number, class: 'form-control', autofocus: true, placeholder: 'xxx-xxx-xxxx', value: number_to_phone(@user.phone_number, area_code: true)
+        .col-6
+          = f.label :avatar, "Profile Picture",class: "form-label"
+          =f.file_field :avatar,{class: "form-control",type: "file"}
+      .row.mb-3
+        .col-6
+          =f.label :country, class: "form-label"
+          =f.country_select :country, { priority_countries: ["US", "CA", "GB"], include_blank: 'Select a country' }, required: true, class: 'form-select'
+      .row.mb-3
+        .col-12
+          =f.label :about, "About You",class: "form-label"
+          =f.text_area :about, class: 'form-control'
+      -# Socials
+      .row.mb-3
+        .col-4
+          = f.label :github, "GitHub",class: "form-label"
+          =f.text_field :github, class: "form-control", placeholder: "GitHub...."
+        .col-4
+          = f.label :linkedin, "LinkedIn",class: "form-label"
+          =f.text_field :linkedin, class: "form-control", placeholder: "LinkedIn...."
+        .col-4
+          = f.label :website, "Website",class: "form-label"
+          =f.text_field :website, class: "form-control", placeholder: "Website...."
+      .row.mb-3
+        .col-3
+          = f.label :youtube, "Youtube",class: "form-label"
+          =f.text_field :youtube, class: "form-control", placeholder: "Youtube...."
+        .col-3
+          = f.label :twitter, "X (Twitter)",class: "form-label"
+          =f.text_field :twitter, class: "form-control", placeholder: "X (Twitter)...."
+        .col-3
+          = f.label :instagram, "Instagram",class: "form-label"
+          =f.text_field :instagram, class: "form-control", placeholder: "Instagram...."
+        .col-3
+          = f.label :discord, "Discord Username",class: "form-label"
+          =f.text_field :discord, class: "form-control", placeholder: "Discord Username...."
+      .row.mb-3
+        .col-6
+          = f.label :password, "Password",class: "form-label"
+          - if @minimum_password_length
+            %em
+              (#{@minimum_password_length} characters minimum)
+          = f.password_field :password, autocomplete: "new-password", class: "form-control"
+        .col-6
+          = f.label :password_confirmation, "Confirm Password",class: "form-label"
+          = f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control"
+      .row.mb-3
+        .col-12
+          = f.label :current_password, class: "form-label"
+          %i.text-muted (we need your current password to confirm your changes)
+      .row.mb-3
+        .col-6
+          = f.password_field :current_password, autocomplete: "current-password", class: "form-control"
+      .row
+        .btn-toolbar.justify-content-end.border-top.border-bottom{:role=> "toolbar"}
+          .d-flex.mt-3.mb-3
+            = f.submit "Update", class: "btn btn-sm btn-primary"
+      .row
+        .btn-toolbar.justify-content-end.border-top.border-bottom{:role=> "toolbar"}
+          .d-flex.mt-3.mb-3
+            %p.me-2 Already have an account?
+            = render "devise/shared/links"
+      .row
+        .btn-toolbar.justify-content-end.border-top.border-bottom{:role=> "toolbar"}
+          .d-flex.mt-3.mb-3
+            %p.me-2 Unhappy?
+            = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "btn btn-sm btn-danger"
