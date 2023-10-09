@@ -3,7 +3,7 @@
     .col-lg-4
       .card.mb-4
         .card-body.text-center
-          =image_tag(@user.avatar.url,class: "rounded-circle img-fluid",style:"width: 150px;") if @user.avatar.present?
+          =image_tag(@user.avatar.url,class: "rounded-circle img-fluid",style:"width: 150px;") if @user.avatar.url.present?
           %h5.my-3= @user.full_name
           -# Area of Expertise
           %p.text-muted.mb-1=@user.aoe 
@@ -25,30 +25,30 @@
                   -if @user.linkedin.present? || @user.github.present? || @user.website.present? || @user.youtube.present?
                     .row.me-3.ms-3.mt-2
                       .d-flex.justify-content-center.text-center.py-1
-                        -if @user.linkedin.present? 
+                        -if @user.linkedin.present?
                           %div
-                            =link_to "LinkedIn", @user.linkedin, class: "btn btn-sm btn-primary me-1"
+                            =link_to "LinkedIn", @user.linkedin, class: "btn btn-sm btn-primary me-1", target: '_blank'
                         -if @user.github.present?
                           %div
-                            =link_to "GitHub", @user.github, class: "btn btn-sm btn-dark me-1"
+                            =link_to "GitHub", @user.github, class: "btn btn-sm btn-dark me-1", target: '_blank'
                         -if @user.website.present?
                           %div
-                            =link_to "Website", @user.website, class: "btn btn-sm btn-info me-1"
+                            =link_to "Website", @user.website, class: "btn btn-sm btn-info me-1", target: '_blank'
                         -if @user.youtube.present?
                           %div
-                            =link_to "Youtube", @user.youtube, class: "btn btn-sm btn-danger"
+                            =link_to "Youtube", @user.youtube, class: "btn btn-sm btn-danger", target: '_blank'
                   -if @user.twitter.present? || @user.instagram.present? || @user.discord.present?
                     .row.me-3.ms-3.mt-2
                       .d-flex.justify-content-center.text-center.py-1
                         -if @user.twitter.present?
                           %div
-                            =link_to "X (Twitter)", @user.twitter, class: "btn btn-sm btn-light me-1"
+                            =link_to "X (Twitter)", @user.twitter, class: "btn btn-sm btn-light me-1", target: '_blank'
                         -if @user.instagram.present?  
                           %div
-                            =link_to "Instagram", @user.instagram, class: "btn btn-sm btn-light me-1"
+                            =link_to "Instagram", @user.instagram, class: "btn btn-sm btn-light me-1", target: '_blank'
                         -if @user.discord.present?
                           %div
-                            =link_to "Discord", @user.discord, class: "btn btn-sm btn-light"
+                            =link_to "Discord", @user.discord, class: "btn btn-sm btn-light", target: '_blank'
             #stats.tab-pane.fade{"aria-labelledby" => "stats-tab", role: "tabpanel"}
               %ul.list-group.list-group-flush.rounded-3
                 %li.list-group-item.d-flex.justify-content-between.align-items-center.p-3
@@ -90,9 +90,12 @@
                         %p.border-top.card-text= project.description.to_plain_text.truncate(150)
                         .btn-toolbar.justify-content-end.border-top{:role=> "toolbar"}
                           .d-flex.mt-3
-                            =link_to "GitHub", project, class: "btn btn-sm btn-dark"
-                            =link_to "Website", project, class: "btn btn-sm btn-primary ms-2 me-2"
-                            =link_to "Youtube", project, class: "btn btn-sm btn-danger"
+                            -if project.github.present? && project.github != ""
+                              =link_to "GitHub", project, class: "btn btn-sm btn-dark", target: '_blank'
+                            -if project.website.present? && project.github != ""
+                              =link_to "Website", project, class: "btn btn-sm btn-primary ms-2 me-2", target: '_blank'
+                            -if project.youtube.present? && project.github != ""
+                              =link_to "Youtube", project, class: "btn btn-sm btn-danger", target: '_blank'
                         %hr/
                         .d-flex.justify-content-between
                           %small.text-muted #{pluralize(project.comments.size, "Comment")}

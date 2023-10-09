@@ -32,12 +32,12 @@
         =image_tag "default.jpg", class:"figure-img rounded img-fluid rounded mx-auto d-block"
     .card-body
       .d-flex.justify-content-end
-        -if @project.github
-          =link_to "GitHub", @project.github, class: "btn btn-dark"
-        -if @project.youtube
-          =link_to "Youtube", @project.youtube, class: "btn btn-danger"
-        -if @project.website
-          =link_to "Website", @project.website, class: "btn btn-info"
+        -if @project.github.present? && @project.github != ""
+          =link_to "GitHub", @project.github, class: "btn btn-dark", target: '_blank'
+        -if @project.youtube.present? && @project.youtube != ""
+          =link_to "Youtube", @project.youtube, class: "btn btn-danger", target: '_blank'
+        -if @project.website.present? && @project.website != ""
+          =link_to "Website", @project.website, class: "btn btn-info", target: '_blank'
       %p.card-text=@project.description
   %hr.m-1/
   .container
