@@ -42,7 +42,8 @@
   %hr.m-1/
   .container
     .card.mt-5.bg-secondary
-      =render 'comments/form', project: @project, comment: @project.comments.build, submit_label: "Reply"
+      -if current_user
+        =render 'comments/form', project: @project, comment: @project.comments.build, submit_label: "Reply"
       -@comments.each do |comment|
         =render 'comments/comment', project: @project, comment: comment
 
