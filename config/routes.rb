@@ -33,4 +33,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  ####### API ROUTES
+
+  namespace :api do
+    namespace :v1 do
+      resources :late_night_ideas, only: [:index, :show, :create, :destroy]
+    end
+  end
 end
