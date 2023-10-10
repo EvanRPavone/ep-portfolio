@@ -8,8 +8,7 @@ function IdeasList() {
   const [ideas, setIdeas] = useState([]);
   const [, setLoading] = useState(true);
   const [, setError] = useState(null);
-  // fetch ideas from the API
-
+  // fetch late night ideas from the API\
   useEffect(() => {
     async function loadIdeas() {
       try {
