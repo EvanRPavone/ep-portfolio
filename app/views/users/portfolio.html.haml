@@ -100,7 +100,7 @@
                         .d-flex.justify-content-between
                           %small.text-muted #{pluralize(project.comments.size, "Comment")}
                           %small.text-muted #{time_ago_in_words(project.created_at)} ago
-              = render partial: 'layouts/pagination', locals: {pagy: @pagy}
+              = render partial: 'layouts/pagination', locals: {pagy: @pagy} if @pagy.pages > 1
               -# =pagy_bootstrap_nav(@pagy).html_safe if @pagy.pages > 1
   %hr/
 
