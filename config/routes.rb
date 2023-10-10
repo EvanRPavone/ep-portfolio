@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :late_night_ideas
 
   authenticated :user, ->(user) { user.admin? } do
     get 'admin', to: 'admin#index'
