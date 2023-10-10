@@ -116,3 +116,5 @@ gem 'mini_magick'
 gem 'aws-sdk-rails'
 
 gem 'figaro'
+
+gem 'fog-aws'
