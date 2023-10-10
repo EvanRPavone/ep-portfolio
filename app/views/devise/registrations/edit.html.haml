@@ -20,12 +20,17 @@
           = f.label :phone_number, "Phone Number",class: "form-label"
           = f.telephone_field :phone_number, class: 'form-control', autofocus: true, placeholder: 'xxx-xxx-xxxx', value: number_to_phone(@user.phone_number, area_code: true)
         .col-6
-          = f.label :avatar, "Profile Picture",class: "form-label"
-          =f.file_field :avatar,{class: "form-control"}
-      .row.mb-3
-        .col-6
           =f.label :country, class: "form-label"
           =f.country_select :country, { priority_countries: ["US", "CA", "GB"], include_blank: 'Select a country' }, required: true, class: 'form-select'
+      .row.mb-3
+        .col-12
+          .d-flex.justify-content-center
+            = f.label :avatar, "Profile Picture",class: "form-label"
+          -if @user.avatar.url.present?
+            .d-flex.justify-content-center
+              .row.mb-3
+                =image_tag(@user.avatar.url,class: "rounded-3 img-fluid",style:"width: 150px;") if @user.avatar.url.present?
+          =f.file_field :avatar,{class: "form-control"}
       .row.mb-3
         .col-12
           =f.label :about, "About You",class: "form-label"
@@ -64,13 +69,6 @@
         .col-6
           = f.label :password_confirmation, "Confirm Password",class: "form-label"
           = f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control"
-      .row.mb-3
-        .col-12
-          = f.label :current_password, class: "form-label"
-          %i.text-muted (we need your current password to confirm your changes)
-      .row.mb-3
-        .col-6
-          = f.password_field :current_password, autocomplete: "current-password", class: "form-control"
       .row
         .btn-toolbar.justify-content-end.border-top.border-bottom{:role=> "toolbar"}
           .d-flex.mt-3.mb-3

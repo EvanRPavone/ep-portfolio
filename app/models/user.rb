@@ -105,4 +105,10 @@ class User < ApplicationRecord
   def set_default_role
     self.role ||= :user
   end
+
+  protected
+
+  def password_required?
+    !persisted? || !password.blank? || !password_confirmation.blank?
+  end
 end

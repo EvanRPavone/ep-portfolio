@@ -54,7 +54,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
                                                               :password,
                                                               :phone_number,
                                                               :password_confirmation,
-                                                              :current_password,
                                                               :country, 
                                                               :github, 
                                                               :linkedin, 
@@ -84,4 +83,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
+  
+  protected
+
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
 end
