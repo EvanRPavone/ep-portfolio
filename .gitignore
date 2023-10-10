@@ -35,7 +35,8 @@
 
 /node_modules
 .env
-.env.development
+/late-night-ideas-frontend/.env
+/late-night-ideas-frontend/.env.development
 
 /config/application.yml
 
