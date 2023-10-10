@@ -1,0 +1,2 @@
+module LateNightIdeasHelper
+end

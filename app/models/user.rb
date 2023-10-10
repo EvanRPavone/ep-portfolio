@@ -18,6 +18,7 @@ class User < ApplicationRecord
   # Relations
   has_many :projects, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :late_night_ideas, dependent: :destroy
   has_many :notifications, as: :recipient, dependent: :destroy
   # Role
   enum role: [:user, :vip, :admin]

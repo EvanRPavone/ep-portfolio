@@ -60,9 +60,13 @@ gem "bootstrap"
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
+# Use Rack CORS for handling Cross-Origin Resource Sharing
+gem "rack-cors"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'faker'
 end
 
 group :development do
@@ -84,37 +88,19 @@ group :test do
 end
 
 gem "noticed", "~> 1.6"
-
 gem "ransack", "~> 4.0"
-
 gem "friendly_id", "~> 5.5"
-
 gem "bullet", "~> 7.0"
-
 gem "activerecord-import", "~> 1.5"
-
 gem "wicked", "~> 2.0"
-
-
-
 gem "jsbundling-rails", "~> 1.2"
-
 gem "country_select", "~> 8.0"
-
 gem "countries", "~> 5.6"
-
 gem 'pagy'
-
 gem "punching_bag"
-
 gem 'carrierwave', '~> 3.0'
-
 gem 'carrierwave-aws'
-
 gem 'mini_magick'
-
 gem 'aws-sdk-rails'
-
 gem 'figaro'
-
 gem 'fog-aws'
