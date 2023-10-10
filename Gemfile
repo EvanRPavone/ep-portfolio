@@ -108,3 +108,11 @@ gem 'pagy'
 gem "punching_bag"
 
 gem 'carrierwave', '~> 3.0'
+
+gem 'carrierwave-aws'
+
+gem 'mini_magick'
+
+gem 'aws-sdk-rails'
+
+gem 'figaro'
