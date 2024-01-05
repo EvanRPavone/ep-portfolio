@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
-  before_action :configure_account_update_params, only: [:update]
+  respond_to :json
+  skip_before_action :verify_authenticity_token
+  # before_action :configure_sign_up_params, only: [:create]
+  # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new
@@ -41,35 +43,35 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
-  end
+  # def configure_sign_up_params
+  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
+  # end
 
-  # If you have extra params to permit, append them to the sanitizer.
-  def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:email,
-                                                              :avatar,
-                                                              :first_name,
-                                                              :last_name,
-                                                              :password,
-                                                              :phone_number,
-                                                              :password_confirmation,
-                                                              :country, 
-                                                              :github, 
-                                                              :linkedin, 
-                                                              :website, 
-                                                              :youtube, 
-                                                              :twitter, 
-                                                              :instagram, 
-                                                              :discord,
-                                                              :aoe,
-                                                              :avatar,
-                                                              :about])
-  end
+  # # If you have extra params to permit, append them to the sanitizer.
+  # def configure_account_update_params
+  #   devise_parameter_sanitizer.permit(:account_update, keys: [:email,
+  #                                                             :avatar,
+  #                                                             :first_name,
+  #                                                             :last_name,
+  #                                                             :password,
+  #                                                             :phone_number,
+  #                                                             :password_confirmation,
+  #                                                             :country, 
+  #                                                             :github, 
+  #                                                             :linkedin, 
+  #                                                             :website, 
+  #                                                             :youtube, 
+  #                                                             :twitter, 
+  #                                                             :instagram, 
+  #                                                             :discord,
+  #                                                             :aoe,
+  #                                                             :avatar,
+  #                                                             :about])
+  # end
 
-  def after_sign_up_path_for(resource)
-    after_signup_path('set_name')
-  end
+  # def after_sign_up_path_for(resource)
+  #   after_signup_path('set_name')
+  # end
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)
@@ -82,6 +84,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   private
+
+  def respond_with(resource, _opt = {})
+    register_success && return if resource.persisted?
+
+    register_failed
+  end
+
+  def register_success
+    render json: {
+      message: 'Signed up successfully.',
+      user: current_user
+    }, status: :ok
+  end
+
+  def register_failed
+    render json: { message: 'Something went wrong.' }, status: :unprocessable_entity
+  end
 
   
   protected
